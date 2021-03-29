@@ -35,3 +35,14 @@ names as their values and deconstruction is visible from submodule
 testing section at the bottom of it. Individual TMs implemented as modules
 and called by names
 
+## Usage
+- The simples task is to increment a number, say 2 ( \[0,1\] in our arabic notation)
+say 4 times with code like:
+
+                        var tape = [0,1];
+                        for(let i = 0; i<4;i++){
+                        tape = tm("increment", tape);
+                        console.log("out:", ...tape)
+                        }
+
+and the result should be \[0,1,1\], or exactly 6

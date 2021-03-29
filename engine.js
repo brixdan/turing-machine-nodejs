@@ -43,12 +43,13 @@ var tm = function (
     return tape;
 }
 //-------------------------------
-// var tape = [1,1];
-// for(let i = 0; i<10;i++){
-// tape = tm("decrement", tape);
-// console.log("out:", ...tape)
-// }
-//-------------------------------
-var tape = [0,1,B,0,1];
-tape = tm("sum", tape);
+// First task
+var tape = [0,1];
+for(let i = 0; i<4;i++){
+tape = tm("increment", tape);
 console.log("out:", ...tape)
+}
+//-------------------------------
+// var tape = [0,1,B,0,1];
+// tape = tm("sum", tape);
+// console.log("out:", ...tape)
