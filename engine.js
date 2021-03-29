@@ -1,0 +1,53 @@
+// My compact Turing Machine
+// Prepare symbols:
+[L, R, halt, q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, B, w, m, n] =
+    ["L", "R", "halt", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "B", "w", "m", "n"];
+
+var tm = function (
+    script,
+    tape,
+    q = q0, // dimension state
+    p = 0 // position state
+) {
+    let step = 0;
+    let name = '';
+
+    if (typeof script === "string") (name = script,script = require("./TMs/" + script));
+
+    while ((step < 100) && (q in script || typeof q === "function")) {
+        console.log(`${name}: step ${step}:`, ...tape);
+        if (typeof q === "function")
+        {
+            tape = q(tape,q0,p)(tm);
+            if (tape.halt) break;
+            q = q0;
+            p = 0; // resume initial process
+        }
+        with (script[q][tape[p]??"B"]) {
+            tape[p] = w
+            q = n
+            switch (m) {        // move to next p-position
+                case L:
+                    p = p - 1;
+                    break;
+                case R:
+                    p = p + 1;
+                    break;
+                default:
+                    p = m; // or jump -)
+            }
+        }
+        step++
+    }
+    console.log(`${name}: step ${step}:`, ...tape);
+    return tape;
+}
+// var tape = [1,1];
+// for(let i = 0; i<10;i++){
+// tape = tm("decrement", tape);
+// console.log("out:", ...tape)
+// }
+//-------------------------------
+var tape = [0,0];
+tape = tm("drift", tape);
+console.log("out:", ...tape)
