@@ -55,7 +55,7 @@ var tm = function (
 // var tape = [0,1,B,0,1];
 // tape = tm("sum", tape, tape.length);
 // console.log("out:", ...tape, "limit = ",tape.limit)
-// Task: describe drift-machine from halt-problem point of view
+// Task: describe grow-machine from halt-problem point of view
 
 // var tape = [0,1]; // no halt
 // //var tape = [0]; // stops at 5
@@ -74,17 +74,17 @@ var tm = function (
 // var tape = [1,0,0,0,0,0,1,1,0,0,0,0,1]; // unstop
 // var tape = [1,1,0,0,0,0,0,0,0,0,0,0,1]; // unstop
 // var tape = [0]; // stop
-// tape = tm("drift", tape,60);
+// tape = tm("grow", tape,60);
 // console.log("out:", ...tape, "limit = ",tape.limit)
 // --------------------------------
 let res = {}
 let tape = [0]
 let temp = [0]
 let s = '';
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 200; i++) {
     tape = tm("increment", temp);
     temp = [...tape];
-    tm("drift", tape,60);
+    tm("grow", tape,60);
     s = temp.toString()
     res[s] = tape.limit;
 }
