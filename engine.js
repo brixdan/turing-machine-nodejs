@@ -65,5 +65,13 @@ var tape = [1,0,0,1]; // unstop
 var tape = [1,0,1]; // stops at 4
 var tape = [1,0,0,0,1]; // stops at 8
 var tape = [1,0,0,0,0,1]; // unstop
+var tape = [1]; // stop at 5
+var tape = [1,1]; // unstop
+var tape = [1,0,0,0,0,0,1]; // stop 12
+var tape = [1,0,0,1,0,0,1]; // unstop
+var tape = [1,0,0,0,0,0,0,0,0,0,0,0,1]; // stop
+var tape = [1,0,0,0,0,0,0,1,0,0,0,0,1]; // unstop
+var tape = [1,0,0,0,0,0,1,1,0,0,0,0,1]; // stop
+
 tape = tm("drift", tape,60);
 console.log("out:", ...tape, "limit = ",tape.limit)
