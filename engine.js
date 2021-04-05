@@ -6,8 +6,9 @@
 var tm = function (
     script,
     tape,
-    q = q0, // dimension state
-    p = 0 // position state
+    limit, // allowed amount of steps/ticks
+    q = q0, // inner/tail state
+    p = 0 // space/head state
 ) {
     let step = 0;
     let name = '';
@@ -23,6 +24,7 @@ var tm = function (
             q = q0;
             p = 0; // resume initial process
         }
+        if (limit && step > limit) { tape.limit = true; break }
         with (script[q][tape[p]??"B"]) {
             tape[p] = w
             q = n
@@ -44,12 +46,19 @@ var tm = function (
 }
 //-------------------------------
 // First task
-var tape = [0,1];
-for(let i = 0; i<4;i++){
-tape = tm("increment", tape);
-console.log("out:", ...tape)
-}
+// var tape = [0,1];
+// for(let i = 0; i<4;i++){
+// tape = tm("increment", tape);
+// console.log("out:", ...tape)
+// }
 //-------------------------------
 // var tape = [0,1,B,0,1];
-// tape = tm("sum", tape);
-// console.log("out:", ...tape)
+// tape = tm("sum", tape, tape.length);
+// console.log("out:", ...tape, "limit = ",tape.limit)
+// Task: describe drift-machine from halt-problem point of view
+
+var tape = [0,1]; // no halt
+//var tape = [0]; // stops at 5
+var tape = [1,0]; // stops at 6
+tape = tm("drift", tape,60);
+console.log("out:", ...tape, "limit = ",tape.limit)
