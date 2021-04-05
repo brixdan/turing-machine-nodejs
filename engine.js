@@ -15,7 +15,7 @@ var tm = function (
 
     if (typeof script === "string") (name = script,script = require("./TMs/" + script));
 
-    while ((step < 100) && (q in script || typeof q === "function")) {
+    while ((step < 200) && (q in script || typeof q === "function")) {
         console.log(`${name}: step ${step}:`, ...tape.slice(0,p),tape[p]+'\''+tape.slice(p+1),q);
         if (typeof q === "function")
         {
@@ -73,19 +73,22 @@ var tm = function (
 // var tape = [1,0,0,0,0,0,0,1,0,0,0,0,1]; // unstop
 // var tape = [1,0,0,0,0,0,1,1,0,0,0,0,1]; // unstop
 // var tape = [1,1,0,0,0,0,0,0,0,0,0,0,1]; // unstop
-// var tape = [0]; // stop
 // tape = tm("grow", tape,60);
 // console.log("out:", ...tape, "limit = ",tape.limit)
 // --------------------------------
-let res = {}
-let tape = [0]
-let temp = [0]
-let s = '';
-for (let i = 0; i < 200; i++) {
-    tape = tm("increment", temp);
-    temp = [...tape];
-    tm("grow", tape,60);
-    s = temp.toString()
-    res[s] = tape.limit;
-}
-console.log("result:",res);
+// let res = {}
+// let tape = [0]
+// let temp = [0]
+// let s = '';
+// for (let i = 0; i < 200; i++) {
+//     tape = tm("increment", temp);
+//     temp = [...tape];
+//     tm("grow", tape,60);
+//     s = temp.toString()
+//     res[s] = tape.limit;
+// }
+// console.log("result:",res);
+//----------------- Drift -------------
+var tape = [0,0,1,1,0];
+tape = tm("drift", tape);
+console.log("out:", ...tape, "limit = ", tape.limit)
