@@ -57,8 +57,13 @@ var tm = function (
 // console.log("out:", ...tape, "limit = ",tape.limit)
 // Task: describe drift-machine from halt-problem point of view
 
-var tape = [0,1]; // no halt
-//var tape = [0]; // stops at 5
-var tape = [1,0]; // stops at 6
+// var tape = [0,1]; // no halt
+// //var tape = [0]; // stops at 5
+// var tape = [1,0]; // stops at 6
+var tape = [1,1,1]; // unstops
+var tape = [1,0,0,1]; // unstop
+var tape = [1,0,1]; // stops at 4
+var tape = [1,0,0,0,1]; // stops at 8
+var tape = [1,0,0,0,0,1]; // unstop
 tape = tm("drift", tape,60);
 console.log("out:", ...tape, "limit = ",tape.limit)
