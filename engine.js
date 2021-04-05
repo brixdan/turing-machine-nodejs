@@ -16,7 +16,7 @@ var tm = function (
     if (typeof script === "string") (name = script,script = require("./TMs/" + script));
 
     while ((step < 100) && (q in script || typeof q === "function")) {
-        console.log(`${name}: step ${step}:`, ...tape);
+        console.log(`${name}: step ${step}:`, ...tape.slice(0,p),tape[p]+'\''+tape.slice(p+1),q);
         if (typeof q === "function")
         {
             tape = q(tape,q0,p)(tm);
@@ -72,6 +72,7 @@ var tape = [1,0,0,1,0,0,1]; // unstop
 var tape = [1,0,0,0,0,0,0,0,0,0,0,0,1]; // stop
 var tape = [1,0,0,0,0,0,0,1,0,0,0,0,1]; // unstop
 var tape = [1,0,0,0,0,0,1,1,0,0,0,0,1]; // stop
+
 
 tape = tm("drift", tape,60);
 console.log("out:", ...tape, "limit = ",tape.limit)
