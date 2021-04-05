@@ -60,19 +60,32 @@ var tm = function (
 // var tape = [0,1]; // no halt
 // //var tape = [0]; // stops at 5
 // var tape = [1,0]; // stops at 6
-var tape = [1,1,1]; // unstops
-var tape = [1,0,0,1]; // unstop
-var tape = [1,0,1]; // stops at 4
-var tape = [1,0,0,0,1]; // stops at 8
-var tape = [1,0,0,0,0,1]; // unstop
-var tape = [1]; // stop at 5
-var tape = [1,1]; // unstop
-var tape = [1,0,0,0,0,0,1]; // stop 12
-var tape = [1,0,0,1,0,0,1]; // unstop
-var tape = [1,0,0,0,0,0,0,0,0,0,0,0,1]; // stop
-var tape = [1,0,0,0,0,0,0,1,0,0,0,0,1]; // unstop
-var tape = [1,0,0,0,0,0,1,1,0,0,0,0,1]; // stop
-
-
-tape = tm("drift", tape,60);
-console.log("out:", ...tape, "limit = ",tape.limit)
+// var tape = [1,1,1]; // unstops
+// var tape = [1,0,0,1]; // unstop
+// var tape = [1,0,1]; // stops at 4
+// var tape = [1,0,0,0,1]; // stops at 8
+// var tape = [1,0,0,0,0,1]; // unstop
+// var tape = [1]; // stop at 5
+// var tape = [1,1]; // unstop
+// var tape = [1,0,0,0,0,0,1]; // stop 12
+// var tape = [1,0,0,1,0,0,1]; // unstop
+// var tape = [1,0,0,0,0,0,0,0,0,0,0,0,1]; // stop
+// var tape = [1,0,0,0,0,0,0,1,0,0,0,0,1]; // unstop
+// var tape = [1,0,0,0,0,0,1,1,0,0,0,0,1]; // unstop
+// var tape = [1,1,0,0,0,0,0,0,0,0,0,0,1]; // unstop
+// var tape = [0]; // stop
+// tape = tm("drift", tape,60);
+// console.log("out:", ...tape, "limit = ",tape.limit)
+// --------------------------------
+let res = {}
+let tape = [0]
+let temp = [0]
+let s = '';
+for (let i = 0; i < 100; i++) {
+    tape = tm("increment", temp);
+    temp = [...tape];
+    tm("drift", tape,60);
+    s = temp.toString()
+    res[s] = tape.limit;
+}
+console.log("result:",res);
