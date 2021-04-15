@@ -24,7 +24,7 @@ var tm = function (
             q = q0;
             p = 0; // resume initial process
         }
-        if (limit && step > limit) { tape.limit = true; break }
+        if (limit && step > limit) { tape.limit = limit; break }
         with (script[q][tape[p]??"B"]) {
             tape[p] = w
             q = n
@@ -57,7 +57,7 @@ var tm = function (
 // console.log("out:", ...tape, "limit = ",tape.limit)
 // Task: describe grow-machine from halt-problem point of view
 
-// var tape = [0,1]; // no halt
+// var tape = [0,1]; // stop at 3
 // //var tape = [0]; // stops at 5
 // var tape = [1,0]; // stops at 6
 // var tape = [1,1,1]; // unstops
@@ -72,23 +72,23 @@ var tm = function (
 // var tape = [1,0,0,0,0,0,0,0,0,0,0,0,1]; // stop
 // var tape = [1,0,0,0,0,0,0,1,0,0,0,0,1]; // unstop
 // var tape = [1,0,0,0,0,0,1,1,0,0,0,0,1]; // unstop
-// var tape = [1,1,0,0,0,0,0,0,0,0,0,0,1]; // unstop
+// var tape = [0,0,0,0,0,0,0,0,0,0,1]; // unstop
 // tape = tm("grow", tape,60);
 // console.log("out:", ...tape, "limit = ",tape.limit)
-// --------------------------------
-// let res = {}
-// let tape = [0]
-// let temp = [0]
-// let s = '';
-// for (let i = 0; i < 200; i++) {
-//     tape = tm("increment", temp);
-//     temp = [...tape];
-//     tm("grow", tape,60);
-//     s = temp.toString()
-//     res[s] = tape.limit;
-// }
-// console.log("result:",res);
 //----------------- Drift -------------
-var tape = [0,0,1,1,0];
-tape = tm("drift", tape);
-console.log("out:", ...tape, "limit = ", tape.limit)
+// var tape = [1,0,1,1,0];
+// tape = tm("drift", tape);
+// console.log("out:", ...tape, "limit = ", tape.limit)
+// --------------------------------
+let res = {}
+let tape = [0]
+let temp = [0]
+let s = '';
+for (let i = 0; i < 100; i++) {
+    tape = tm("increment", temp);
+    temp = [...tape];
+    tm("grow", tape,60);
+    s = temp.toString()
+    res[s] = tape.limit;
+}
+console.log("result:",res);
