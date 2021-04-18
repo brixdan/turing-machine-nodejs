@@ -84,7 +84,7 @@ let res = {}
 let tape = [0]
 let temp = [0]
 let s = '';
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 500; i++) {
     tape = tm("increment", temp);
     temp = [...tape];
     tm("grow", tape,60);
