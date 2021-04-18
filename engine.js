@@ -8,7 +8,8 @@ var tm = function (
     tape,
     limit, // allowed amount of steps/ticks
     q = q0, // inner/tail state
-    p = 0 // space/head state
+    p = 0, // space/head state
+    v = true // vebose
 ) {
     let step = 0;
     let name = '';
@@ -16,7 +17,7 @@ var tm = function (
     if (typeof script === "string") (name = script,script = require("./TMs/" + script));
 
     while ((step < 200) && (q in script || typeof q === "function")) {
-        console.log(`${name}: step ${step}:`, ...tape.slice(0,p),tape[p]+'\''+tape.slice(p+1),q);
+        if (v) console.log(`${name}: step ${step}:`, ...tape.slice(0,p),tape[p]+'\''+tape.slice(p+1),q);
         if (typeof q === "function")
         {
             tape = q(tape,q0,p)(tm);
@@ -41,7 +42,7 @@ var tm = function (
         }
         step++
     }
-    console.log(`${name}: step ${step}:`, ...tape);
+    if (v) console.log(`${name}: step ${step}:`, ...tape);
     return tape;
 }
 //-------------------------------
@@ -80,15 +81,30 @@ var tm = function (
 // tape = tm("drift", tape);
 // console.log("out:", ...tape, "limit = ", tape.limit)
 // --------------------------------
-let res = {}
-let tape = [0]
-let temp = [0]
-let s = '';
-for (let i = 0; i < 500; i++) {
-    tape = tm("increment", temp);
-    temp = [...tape];
-    tm("grow", tape,60);
-    s = temp.toString()
-    res[s] = tape.limit;
-}
-console.log("result:",res);
+// let res = {}
+// let tape = [0]
+// let temp = [0]
+// let s = '';
+// for (let i = 0; i < 500; i++) {
+//     tape = tm("increment", temp);
+//     temp = [...tape];
+//     tm("grow", tape,60);
+//     s = temp.toString()
+//     res[s] = tape.limit;
+// }
+// console.log("result:",res);
+//-------------------------------
+// Допустим существует алгоритм, как угодно много состояний, который может лишь "поглядев"
+// на число, сказать кончит на нём или нет. Тогда можно предположть, что он будет идти
+// только вперёд и проходить каждый бит.
+// Идея - такого не может быть. Возьмем первое совпадение состояний на конце супербольшого
+// числа. Допустим что grow даёт одинаковый на них результат ибо если разный, то умник-то
+// в одном состоянии при одном входе должен дать одно и то же. Однако мы можем "вырастить"
+// оба числа так, что они разойдуться. Пример: ускользает пока
+var tape1 = [1,1,0,1,0,1,0,0,0,1,1,1,0,1,1,1,0]; //
+var tape2 = [1,1,0,1,0,1,0,0,1,1,1,0]; //
+
+tape = tm("grow", tape1,60,q0,0,false);
+console.log("out1:", ...tape1, "limit = ",tape1.limit)
+tape = tm("grow", tape2,60,q0,0,false);
+console.log("out1:", ...tape2, "limit = ",tape2.limit)
