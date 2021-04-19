@@ -16,16 +16,16 @@ var tm = function (
 
     if (typeof script === "string") (name = script, script = require("./TMs/" + script));
 
-    while ((step < 200) && (q in script || typeof q === "function")) {
+    while ((step < limit) && (q in script || typeof q === "function")) {
         if (typeof q === "function") {
             tape = q(tape, q0, p)(tm);
             if (tape.halt) break;
             q = q0;
             p = 0; // resume initial process
         }
-        if (limit && step > limit) {
+        if (limit && step + 1 >= limit) {
             tape.limit = limit;
-            break
+            //break
         }
         with (script[q][tape[p] ?? "B"]) {
             if (v) console.log(`${name}: step ${step}:`, ...show(tape,p),q,w,m,n);
@@ -48,14 +48,14 @@ var tm = function (
     return tape;
 }
 
-function show(ar,p) {
+function show(ar,p,shift = 20) {
     let out = []
-    for (let i = 0; i < 20; i++) {
-        out[i] = ar[i - 10] ??'_';
+    for (let i = 0; i < 2*shift; i++) {
+        out[i] = ar[i - shift] ??'_';
     }
-    out = [...out.slice(0,10),'*',...out.slice(10)]
+    out = [...out.slice(0,shift),'*',...out.slice(shift)]
     if (p !== undefined) {
-        p = p + 10;
+        p = p + shift;
         out.splice(p + 2, 0, "'")
     }
     return out
@@ -75,8 +75,8 @@ function show(ar,p) {
 // console.log("result:",res);
 
 var tape = [0,0,B]; // interest
-tape=[0,0,B,0]
+tape=[1,0,0,B,0,B,1] // stops at 135
 
-tape = tm("mixin", tape,100,q0,0,true);
+tape = tm("mixin", tape,300,q0,0,true);
 console.log("out:", ...show(tape), "limit = ",tape.limit)
 
