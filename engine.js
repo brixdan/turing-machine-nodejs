@@ -103,10 +103,13 @@ var tm = function (
 // числа. Допустим что grow даёт одинаковый на них результат ибо если разный, то умник-то
 // в одном состоянии при одном входе должен дать одно и то же. Однако мы можем "вырастить"
 // оба числа так, что они разойдуться. Пример: ускользает пока
-// var tape1 = [1,1,0,1,0,1,0,0,0,1,1,1,0,1,1,1,0]; //
-// var tape2 = [1,1,0,1,0,1,0,0,1,1,1,0]; //
-//
-// tape = tm("grow", tape1,60,q0,0,false);
-// console.log("out1:", ...tape1, "limit = ",tape1.limit)
-// tape = tm("grow", tape2,60,q0,0,false);
-// console.log("out1:", ...tape2, "limit = ",tape2.limit)
+var tape1 = [1,0,1,1,0,0,1,1,1,0,0,0,1,1,1,1,0,0,0]; // initial совпадение stop
+var tape2 = [1,0,1,1,0,0,1]; //
+
+tape1 = [1,0,0,0,0,0,0]; // initial совпадение stop
+tape2 = [1,0,0,0,0,0,1]; // ускользает
+
+tape = tm("grow", tape1,60,q0,0,false);
+console.log("out1:", ...tape1, "limit = ",tape1.limit)
+tape = tm("grow", tape2,60,q0,0,false);
+console.log("out1:", ...tape2, "limit = ",tape2.limit)
