@@ -1,0 +1,9 @@
+{
+  "name": "turing-machine-nodejs",
+  "version": "1.0.0",
+  "description": "Research and prove some interesting concepts",
+  "main": "engine.js",
+  "repository": "https://github.com/brixdan/turing-machine-nodejs",
+  "author": "Brix Dan <brixdan@gmail.com>",
+  "license": "MIT"
+}
