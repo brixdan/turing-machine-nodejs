@@ -7,7 +7,7 @@ const colors = require('colors');
 const tm = function (
     script,
     tape,
-    limit, // allowed amount of steps/ticks
+    limit = 200, // allowed amount of steps/ticks
     q = q0, // inner/tail state
     p = 0, // space/head state
     v = true // vebose
@@ -24,11 +24,12 @@ const tm = function (
             q = q0;
             p = 0; // resume initial process
         }
-        if (limit && step + 1 >= limit) {
-            tape.limit = limit;
-            //break
-        }
+        // if (limit && step + 1 >= limit) {
+        //     tape.limit = limit;
+        //     //break
+        // }
         with (script[q][tape[p] ?? "B"]) {
+            tape.step = step + 1;
             if (v) console.log(`${name}: step ${step}:  `, ...show(tape,p),q,w,m,n);
             tape[p] = w
             q = n
@@ -45,7 +46,7 @@ const tm = function (
         }
         step++
     }
-    if (v) console.log(`${name}: step ${step}:`, ...tape);
+    if (v) console.log(`${name}: step ${step}:`, ...tape,` total:${tape.step}`);
     return tape;
 }
 
