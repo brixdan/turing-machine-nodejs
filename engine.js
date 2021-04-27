@@ -4,7 +4,7 @@ const colors = require('colors');
 [L, R, halt, q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, B, w, m, n] =
     ["L", "R", "halt", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "B", "w", "m", "n"];
 
-var tm = function (
+const tm = function (
     script,
     tape,
     limit, // allowed amount of steps/ticks
@@ -61,28 +61,8 @@ function show(ar,p,shift = 20) {
     }
     return out
 }
-// -----------------MIXIN---------------
-// let res = {}
-// let tape = [0]
-// let temp = [0]
-// let s = '';
-// for (let i = 0; i < 500; i++) {
-//     tape = tm("increment", temp);
-//     temp = [...tape];
-//     tm("grow", tape,60);
-//     s = temp.toString()
-//     res[s] = tape.limit;
-// }
-// console.log("result:",res);
+module.exports.tm = tm;
 
-var tape;
-tape=[1,B,0,B,1] // stops at 23
 
-// tape=[1,0,B,1] // non
-// tape=[1,0,B,1,0] // non
-// tape=[1,B,0,B,0] // non
-// tape=[1,B,0,B,1] // 22
 
-tape = tm("mixin", tape,300,q0,0,true);
-console.log("out:", ...show(tape), "limit = ",tape.limit)
 
