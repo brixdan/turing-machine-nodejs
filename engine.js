@@ -1,4 +1,5 @@
 // My compact Turing Machine
+const colors = require('colors');
 // Prepare symbols:
 [L, R, halt, q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, B, w, m, n] =
     ["L", "R", "halt", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "B", "w", "m", "n"];
@@ -28,7 +29,7 @@ var tm = function (
             //break
         }
         with (script[q][tape[p] ?? "B"]) {
-            if (v) console.log(`${name}: step ${step}:`, ...show(tape,p),q,w,m,n);
+            if (v) console.log(`${name}: step ${step}:  `, ...show(tape,p),q,w,m,n);
             tape[p] = w
             q = n
             switch (m) {        // move to next p-position
@@ -53,10 +54,10 @@ function show(ar,p,shift = 20) {
     for (let i = 0; i < 2*shift; i++) {
         out[i] = ar[i - shift] ??'_';
     }
-    out = [...out.slice(0,shift),'*',...out.slice(shift)]
+    out = [...out.slice(0,shift),`${out[shift]}`.red.bold,...out.slice(shift+1)]
     if (p !== undefined) {
         p = p + shift;
-        out.splice(p + 2, 0, "'")
+        out = [...out.slice(0,p),`${out[p]}`.green.bold,...out.slice(p+1)]
     }
     return out
 }
@@ -74,8 +75,13 @@ function show(ar,p,shift = 20) {
 // }
 // console.log("result:",res);
 
-var tape = [0,0,B]; // interest
-tape=[1,0,0,B,0,B,1] // stops at 135
+var tape;
+tape=[1,B,0,B,1] // stops at 23
+
+// tape=[1,0,B,1] // non
+// tape=[1,0,B,1,0] // non
+// tape=[1,B,0,B,0] // non
+// tape=[1,B,0,B,1] // 22
 
 tape = tm("mixin", tape,300,q0,0,true);
 console.log("out:", ...show(tape), "limit = ",tape.limit)

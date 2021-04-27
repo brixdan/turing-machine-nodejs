@@ -5,5 +5,8 @@
   "main": "engine.js",
   "repository": "https://github.com/brixdan/turing-machine-nodejs",
   "author": "Brix Dan <brixdan@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
 }
