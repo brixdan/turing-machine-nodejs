@@ -5,8 +5,9 @@ var tape;
 //     let step = tm("grow", tape, 100, q0, 0, true);
 //     console.log("step = ", step);
 // });
-tape = [1,0,0,1] // infinity
+tape = [1, 0, 0, 1] // infinity
 function resolve(tape, p, q) {
+    if (p === 0) console.log("tape = " + tape, "p = ", p, "q = ", q)
     let stop = "stop";
     if ((p > 1) && (tape[p] === undefined)) {
         if (q === q0) {
@@ -41,25 +42,32 @@ function resolve(tape, p, q) {
                 case 1:
                     q = q0;
                     tape[p] = 0;
-                    break
+                    break;
             }
-            ;
             break;
         case q1:
             switch (tape[p]) {
                 case 0:
-                    q = q0;
-                    tape[p] = 1;
+                    q = q0; // it revisits one
+                    if (tape[p - 1] === 1) {
+                        tape[p - 1] === 0;
+                        tape[p] === 0;
+                        q = q0;
+                    } else {
+                        tape[p - 1] === 1;
+                        tape[p] === 1;
+                        q = q1;
+                    }
                     break;
                 case 1:
                     q = q1;
                     tape[p] = 1;
-                    break
+                    break;
             }
-            ;
             break;
     }
-    console.log("tape = " + tape, "p = ", ++p, "q = ", q)
+    ++p;
+    console.log("tape = " + tape, "p = ", p, "q = ", q)
     return resolve(tape, p, q);
 }
 
