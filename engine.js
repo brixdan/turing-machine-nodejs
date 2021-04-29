@@ -24,13 +24,9 @@ const tm = function (
             q = q0;
             p = 0; // resume initial process
         }
-        // if (limit && step + 1 >= limit) {
-        //     tape.limit = limit;
-        //     //break
-        // }
         with (script[q][tape[p] ?? "B"]) {
             tape.step = step + 1;
-            if (v) console.log(`${name}: step ${step}:  `, ...show(tape,p),q,w,m,n);
+            if (v) console.log(`${name}: step ${step}:  `, ...show(tape, p), q, w, m, n);
             tape[p] = w
             q = n
             switch (m) {        // move to next p-position
@@ -46,22 +42,27 @@ const tm = function (
         }
         step++
     }
-    if (v) console.log(`${name}: step ${step}:`, ...tape,` total:${tape.step}`);
+    if (v) console.log(`${name}: step ${step}:`, ...tape, ` total:${tape.step}`);
     return tape;
 }
 
-function show(ar,p,shift = 20) {
+function show(ar, p, shift = 20) {
+    if (p === undefined) {
+        console.log(`Position undefined`.red.bold);
+        return;
+    } else {
+        p = p + shift
+    }
     let out = []
-    for (let i = 0; i < 2*shift; i++) {
-        out[i] = ar[i - shift] ??'_';
+    for (let i = 0; i < 2 * shift; i++) {
+        out[i] = ar[i - shift] ?? '_';
     }
-    out = [...out.slice(0,shift),`${out[shift]}`.red.bold,...out.slice(shift+1)]
-    if (p !== undefined) {
-        p = p + shift;
-        out = [...out.slice(0,p),`${out[p]}`.green.bold,...out.slice(p+1)]
-    }
+    out = [...out.slice(0, p), `${out[p]}`.red.bold, ...out.slice(p + 1)]
+    out = [...out.slice(0, shift), `${out[shift]}`.green.bold, ...out.slice(shift + 1)]
+
     return out
 }
+
 module.exports.tm = tm;
 
 
