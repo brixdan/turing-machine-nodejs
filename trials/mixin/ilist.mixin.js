@@ -10,7 +10,7 @@ let temp = [0];
 });
 (function () {
     let s = '';
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 500; i++) {
         s = temp.toString()
         tape = [...temp];
         let total = tm("mixin", tape, 50, q0, 0, false);
@@ -20,8 +20,3 @@ let temp = [0];
     console.log("result:", res);
 })()
 
-// tape =[1,1,0,1,0,1] // 8?18
-// tape =[1,1,1,1,1] // 8?18
-// //
-// tm("mixin", tape,100,q0,0,true);
-//console.log(tape)

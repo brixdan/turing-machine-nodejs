@@ -1,4 +1,4 @@
-const {tm} = require('../../engine')
+const { tm } = require('../../engine')
 var tape;
 
 (function () {
@@ -16,9 +16,9 @@ var tape;
     tape = [0,0,0,1] // stop in 12
     let step = tm("mixin", tape, 100, q0, 0, true);
     console.log("step = ", step);
-})();
+});
 (function () {
-    tape = [0,0,0,0,0,1] // stop in 34 step
+    tape = [0,0,0,0,0,1] // stop in 34 step interest!
     let step = tm("mixin", tape, 100, q0, 0, true);
     console.log("step = ", step);
-});
+})();
