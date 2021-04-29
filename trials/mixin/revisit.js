@@ -8,4 +8,5 @@ tape=[1,B,0,B,1] // stops at 23
 // tape=[1,B,0,B,0] // non
 // tape=[1,B,0,B,1] // 22
 
-tape = tm("mixin", tape,300,q0,0,true);
+let step = tm("mixin", tape,22,q0,0,true);
+console.log("step = ", step)
