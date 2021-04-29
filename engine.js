@@ -43,8 +43,9 @@ const tm = function (
         }
         step++
     }
-    if (v) console.log(`${name}: step ${tape.step}:`, ...tape, ` total:${tape.step >= limit?"infinity".red.bold:tape.step}`);
-    return tape.step;
+    const total = `${tape.step >= limit?"infinity".red.bold:tape.step}`;
+    if (v) console.log(`${name}: step ${tape.step}:`, ...tape,  "total: " + total);
+    return tape.step >= limit?"infinity":tape.step;
 }
 
 function show(ar, p, shift = 20) {
