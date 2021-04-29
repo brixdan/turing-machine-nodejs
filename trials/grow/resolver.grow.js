@@ -1,11 +1,11 @@
 const {tm} = require('../../engine')
 var tape;
-(function () {
-    tape = [0,0,0,1] //
-    let step = tm("grow", tape, 100, q0, 0, true);
-    console.log("step = ", step);
-});
-tape = [0,0,0,1] // infinity
+// (function () {
+//     tape = [1,0,0,1] //
+//     let step = tm("grow", tape, 100, q0, 0, true);
+//     console.log("step = ", step);
+// });
+tape = [1,0,0,1] // infinity
 function resolve(tape, p, q) {
     let stop = "stop";
     if ((p > 1) && (tape[p] === undefined)) {

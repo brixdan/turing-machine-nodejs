@@ -11,7 +11,7 @@ var tape;
     console.log("step = ", step);
 });
 (function () {
-    tape = [1,1] // infinity
-    let step = tm("grow", tape, 100, q0, 2, true);
+    tape = [1,0,0,1] // Problem!!!
+    let step = tm("grow", tape, 100, q0, 0, true);
     console.log("step = ", step);
 })();
