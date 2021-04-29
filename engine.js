@@ -26,7 +26,8 @@ const tm = function (
         }
         with (script[q][tape[p] ?? "B"]) {
             tape.step = step + 1;
-            if (v) console.log(`${name}: step ${step}:  `, ...show(tape, p), q, w, m, n);
+            let str = [...show(tape, p)].join(' ');
+            if (v) console.log(`${name}:`,`step ${step}:`.padEnd(10," "), str, q, w, m, n);
             tape[p] = w
             q = n
             switch (m) {        // move to next p-position
