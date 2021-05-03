@@ -44,12 +44,12 @@ function resolver(tape, p, q) {
                 case 0:
                     q = q0; // it revisits only one step
                     if (tape[p - 1] === 1) {
-                        tape[p - 1] === 0;
-                        tape[p] === 0;
+                        tape[p - 1] = 0;
+                        tape[p] = 0;
                         q = q0;
                     } else {
-                        tape[p - 1] === 1;
-                        tape[p] === 1;
+                        tape[p - 1] = 1;
+                        tape[p] = 1;
                         q = q1;
                     }
                     break;
