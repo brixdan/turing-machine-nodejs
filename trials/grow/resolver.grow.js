@@ -1,7 +1,7 @@
 const {tm} = require('../../engine')
 
 function resolver(tape, p, q) {
-    if (p === 0) console.log("tape = " + tape, "p = ", p, "q = ", q)
+    // if (p === 0) console.log("tape = " + tape, "p = ", p, "q = ", q)
     let stop = "stop";
     if ((p > 1) && (tape[p] === undefined)) {
         if (q === q0) {
@@ -42,7 +42,7 @@ function resolver(tape, p, q) {
         case q1:
             switch (tape[p]) {
                 case 0:
-                    q = q0; // it revisits only one step
+                    // it revisits only one step
                     if (tape[p - 1] === 1) {
                         tape[p - 1] = 0;
                         tape[p] = 0;
@@ -61,14 +61,14 @@ function resolver(tape, p, q) {
             break;
     }
     ++p;
-    console.log("tape = " + tape, "p = ", p, "q = ", q)
+    // console.log("tape = " + tape, "p = ", p, "q = ", q)
     return resolver(tape, p, q);
 }
 exports.resolver = resolver;
 
 
-    tape = [1, 0, 0, 1] // infinity
-let res = resolver(tape, 0, q0)
+    tape = [1,0] // infinity
+let res = resolver(tape, 1, q1)
 //
 // //    let step = tm("grow", tape, 100, q0, 0, true);
 console.log("res = ", res, "tape = ", tape);

@@ -22,10 +22,10 @@ let temp = [0];
         s = temp.toString()
         tape = [...temp];
         tape1 = [...temp];
-        let total = tm("grow", tape, 100, q0, 0, false);
+        let total = tm("grow", tape, 500, q0, 0, false);
         res[s] = total + "  " + resolver(tape1, 0, q0);
-        tm("increment", temp, 1000,q0,0,false);
-        // temp.push(Math.floor(Math.random() * 2));
+        //tm("increment", temp, 1000,q0,0,false);
+         temp.push(Math.floor(Math.random() * 2));
     }
     console.log("result:", res);
 })();
