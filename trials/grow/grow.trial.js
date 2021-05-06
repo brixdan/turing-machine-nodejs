@@ -11,10 +11,7 @@ var tape;
     console.log("step = ", step);
 });
 (function () {
-    tape = [0,0] // Problem!!!
-    tape = [0,1,1,0,0,0,0,0,0,1,0,0,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,1,0,0,1,1,0,1,0,1,0,1,0,0,1,1,0,1,1,1,1,0,0,1,1,1,1,1,0,0,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1]
-    // 'infinity  stop',
-
+    tape = [0,0] //
     let step = tm("grow", tape, 500, q1, 1, true);
     console.log("step = ", step);
 })();
