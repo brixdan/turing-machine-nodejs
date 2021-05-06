@@ -22,15 +22,16 @@ let ruler = [0];
 (function () {
     let s = '';
     let t = 0;
-    temp = [0]
-    ruler = [1,0,1]
-    while (t !== undefined) {
+    temp = [1,1]
+    ruler = [1,0,1,0] // oscillates halt result
+    while (t !== undefined && t < 100) {
         s = temp.toString()
         tape = [...temp];
         tape1 = [...temp];
         let total = tm("rgrow", tape, 100, q0, 0, true);
         res[s] = total + "  " + resolver(tape1, 0, q0);
-        //tm("increment", temp, 1000,q0,0,false);
+        // tm("increment", temp, 100,q0,0,false);
+        // t++;
         //temp.push(Math.floor(Math.random() * 2));
         t = ruler.shift()
         temp.push(t);
