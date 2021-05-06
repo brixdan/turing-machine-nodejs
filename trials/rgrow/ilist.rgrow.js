@@ -3,19 +3,8 @@ const { resolver } = require('../grow/resolver.grow')
 let res = {};
 let tape = [0];
 let temp = [0];
+let ruler = [0];
 
-(function () {
-    let s = '';
-    for (let i = 0; i < 100; i++) {
-        s = temp.toString()
-        tape = [...temp];
-        tape1 = [...temp];
-        let total = tm("rgrow", tape, 100, q0, 0, false);
-        res[s] = total + "  " + resolver(tape1, 0, q0);
-        tm("increment", temp, 1000,q0,0,false);
-    }
-    console.log("result:", res);
-});
 (function () {
     let s = '';
     for (let i = 0; i < 100; i++) {
@@ -26,6 +15,25 @@ let temp = [0];
         res[s] = total + "  " + resolver(tape1, 0, q0);
         tm("increment", temp, 1000,q0,0,false);
          //temp.push(Math.floor(Math.random() * 2));
+    }
+    console.log("result:", res);
+});
+
+(function () {
+    let s = '';
+    let t = 0;
+    temp = [0]
+    ruler = [1,0,1]
+    while (t !== undefined) {
+        s = temp.toString()
+        tape = [...temp];
+        tape1 = [...temp];
+        let total = tm("rgrow", tape, 100, q0, 0, true);
+        res[s] = total + "  " + resolver(tape1, 0, q0);
+        //tm("increment", temp, 1000,q0,0,false);
+        //temp.push(Math.floor(Math.random() * 2));
+        t = ruler.shift()
+        temp.push(t);
     }
     console.log("result:", res);
 })();

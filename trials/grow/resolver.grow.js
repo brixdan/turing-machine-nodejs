@@ -64,12 +64,11 @@ function resolver(tape, p, q) {
     // console.log("tape = " + tape, "p = ", p, "q = ", q)
     return resolver(tape, p, q);
 }
+
 exports.resolver = resolver;
 
 
-    tape = [1,0,1] // infinity
+tape = [1, 0, 1] // infinity
 let res = resolver(tape, 0, q0)
-//
-// //    let step = tm("grow", tape, 100, q0, 0, true);
 console.log("res = ", res, "tape = ", tape);
 
