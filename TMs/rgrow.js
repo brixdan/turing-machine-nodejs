@@ -14,7 +14,7 @@ const program = {
     q2: {
         0: {w:1,m:L,n:q2},
         1: {w:0,m:L,n:q2},
-        B: {w:0,m:R,n:q0}
+        B: {w:B,m:R,n:q0}
     },
 }
 module.exports = program;
