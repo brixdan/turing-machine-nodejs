@@ -2,9 +2,9 @@
 
 const program = {
     q0: {
-        0: {w:1,m:R,n:q1},
+        0: {w:0,m:R,n:q1},
         1: {w:1,m:R,n:q0},
-        B: {w:0,m:L,n:q1} // revisit start
+        B: {w:1,m:L,n:q1} // revisit start
     },
     q1: {
         0: {w:1,m:R,n:q2},
@@ -18,4 +18,5 @@ const program = {
     },
 }
 module.exports = program;
-// Want to oscillate on every seed
+// Looks like always exists however big number
+// that stops process, starting from any seed

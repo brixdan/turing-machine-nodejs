@@ -23,12 +23,16 @@ let ruler = [0];
     let s = '';
     let t = 0;
     temp = [0,0,1]
-    ruler = [1,0,1,0] // oscillates halt result
+    temp = [1,0,1,1,1,0,0,1]; // 67
+    temp = [0,1,0,1,1,1,0,0,1] // '76  infinity',
+    temp = [0,1,0,1,1,0,0,1,1] // '240
+
+        ruler = [1,0,1,0] // oscillates halt result
     while (t !== undefined && t < 100) {
         s = temp.toString()
         tape = [...temp];
         tape1 = [...temp];
-        let total = tm("rgrow", tape, 100, q0, 0, true);
+        let total = tm("rgrow", tape, 500, q0, 0, true);
         res[s] = total + "  " + resolver(tape1, 0, q0);
         tm("increment", temp, 100,q0,0,false);
         t++;
