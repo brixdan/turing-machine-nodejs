@@ -22,7 +22,7 @@ let ruler = [0];
 (function () {
     let s = '';
     let t = 0;
-    temp = [0,0,1]
+    temp = [1,0,1]
 
 
         ruler = [1,0,1,0] // oscillates halt result
