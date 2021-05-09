@@ -1,33 +1,27 @@
 const { tm } = require('../../engine')
-const { resolver } = require('../grow/resolver.grow')
 let res = {};
-let tape;
-let ruler = [];
+let i = 0;
+let temp =[];
+let tape = []
+let seed = [1,0,1]; // +
+seed = [1,0,1,1,1,0,0]; // +
+let total = 0;
 
 (function () {
+    while ( i < 100) {
 
-    let t = 0;
-    let i = 0;
-    let tape1 =[0];
-    let start = [1,0,0]
-    let start1 = [0,1,1,0];
+        tape = [...seed.concat(temp)];
+        console.log("income tape = ", ...tape);
+        total = tm("rgrow", tape, 100, q0, 0, true);
+        res[i++] = total;
 
-    ruler = [1,0,1,0,1,1,1,1,0,1,0,1,0,0,1,1,0,0,0,1,1,1] // oscillates halt result
-    while ( t !== undefined && i < 100) {
-
-        tape = [...start];
-        tape1 = [...start1];
-        tape1[-1] = 0;
-        let total = tm("rgrow", tape, 100, q1, 2, false);
-        let total1 = tm("rgrow", tape1, 100, q0, 3, false);
-        res[i++] = total + "  " + total1;
-        // tm("increment", temp, 100,q0,0,false);
-        // t++;
         //temp.push(Math.floor(Math.random() * 2));
         // t = ruler.shift()
-        t = Math.floor(Math.random() * 2);
-        start.push(t);
-        start1.push(t);
+        //t = Math.floor(Math.random() * 2);
+        // start.push(t);
+        console.log("out tape = ", ...tape, "total = ", total)
+        if (temp.length === 0) temp = [0]; else
+        tm("increment", temp, 100,q0,0,false);
     }
     console.log("result:", res);
 })();
