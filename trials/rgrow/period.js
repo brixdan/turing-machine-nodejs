@@ -1,4 +1,13 @@
 const { tm } = require('../../engine')
+
+// pop from Set
+function pop(s) {
+    if (s.size === 0) return null;
+    let value = s.values().next().value;
+    s.delete(value);
+    return value;
+}
+
 let tape;
 (function () {
     tape = [1,1,0,1] // infinity
@@ -51,25 +60,38 @@ function checkStep (d) {
     if (t.tape.p === -1) return "Goes out left";
     return t;
 }
-let t = checkStep(x);
-console.log("tape = ",t.tape, " p = ", t.p, " q = ", t.q, "x = ", x);
+// let t = checkStep(x);
+// console.log("tape = ",t.tape, " p = ", t.p, " q = ", t.q, "x = ", x);
 
 function checkMany(or, d = or, i= 0, limit = 20) {
-    if ( typeof d === "string" || i >= limit) return d.tape + " i = " + i;
+    if ( typeof d === "string" || i >= limit) return d + " i = " + i;
     i++;
     let t = checkStep(d);
     // some check
     if (or.p === 0 && t.p === d.tape.length - 1) {
-        if (or.tape[0] === t.tape[d.tape.length - 1] &&
-        or.q === t.q) return t;
-     else return "tape = " + t.tape + " states equals = " +(or.q === t.q) +
-            " or.q = " + or.q + " t.q = " + t.q + " t.p = " + t.p;}
-    if (t.p === 0 && or.p === or.tape.length - 1 &&
-        t.tape[0] === or.tape[or.tape.length - 1] &&
-        t.q === or.q) return t;
-
+        if (or.q === t.q) return t; else return "tape = " + t.tape + " " +
+            " p = " + t.p + " " + t.q + "  = " + or.q
+    }
+    if (or.p === d.tape.length - 1 && t.p === 0) {
+        if (or.q === t.q) return t; else return "tape = " + t.tape + " " +
+            " p = " + t.p + " " + t.q + "  = " + or.q
+    }
     return checkMany(or, t, i, limit);
 }
-
+x = { tape:[1,0,1], p:2, q: q2 }
 let r =  checkMany(x, d = x, i= 0, limit = 20);
 console.log(r);
+let s = new Set();
+let f = new Set();
+x = { tape:[1,0,1], p:0, q: q0 }
+s.add(x.tape.join(''));
+function checkInterval(s ,f ,i= 0, limit = 20) {
+    let str;
+    while (s.size !== 0) {
+        str = pop(s);
+        console.log('str = ',str);
+
+
+    }
+}
+checkInterval(s,f);
