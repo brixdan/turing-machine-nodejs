@@ -9,20 +9,8 @@ function pop(s) {
 }
 
 let tape;
-(function () {
-    tape = [1,1,0,1] // infinity
-    tape = [0,0,0,1] // infinity
-
-    // tape = [1,1,1] // stop 4
-    // tape = [1,1,0] // infinity
-    // tape = [0,1,1,0];
-    // tape[-1] = 0;
-    tape = [1,0,1].concat([1,0,1]).concat([1,0,1]).concat([1,0,1]).concat([1,0,1]); ; //78
-
-    let step = tm("rgrow", tape, 500, q0, 0, true);
-    console.log("step = ", step);
-});
 let script = require("../../TMs/" + "rgrow");
+
 function step(d) {
     let tape = [...d.tape]; p = d.p; q = d.q; // don't change income!!!
     with (script[q][tape[p] ?? "B"]) {
@@ -41,9 +29,7 @@ function step(d) {
         return {tape, p, q}
     }
 }
-let x = { tape:[1,0,1], p:0, q: q0 }
-console.log(x.tape);
-// let t = step(x);
+
 function manySteps(d, i= 0, limit = 5) {
      if (i >= limit) return d;
      i++;
@@ -57,13 +43,13 @@ function manySteps(d, i= 0, limit = 5) {
 function checkStep (d) {
     let t = step(d);
     if (d.tape.length !== t.tape.length) return "Goes out right";
-    if (t.tape.p === -1) return "Goes out left";
+    if (t.p <= -1) return "Goes out left";
     return t;
 }
 // let t = checkStep(x);
 // console.log("tape = ",t.tape, " p = ", t.p, " q = ", t.q, "x = ", x);
 
-function checkMany(or, d = or, i= 0, limit = 20) {
+function checkMany(or, d = or, i= 0, limit = 200) {
     if ( typeof d === "string" || i >= limit) return d + " i = " + i;
     i++;
     let t = checkStep(d);
@@ -78,20 +64,35 @@ function checkMany(or, d = or, i= 0, limit = 20) {
     }
     return checkMany(or, t, i, limit);
 }
-x = { tape:[1,0,1], p:2, q: q2 }
-let r =  checkMany(x, d = x, i= 0, limit = 20);
-console.log(r);
+//----------------------------------------
 let s = new Set();
 let f = new Set();
-x = { tape:[1,0,1], p:0, q: q0 }
+x = { tape:[1,0,0,1,1], p:0, q: q0 }
 s.add(x.tape.join(''));
-function checkInterval(s ,f ,i= 0, limit = 20) {
+function checkInterval(q ,s ,f ,i= 0, limit = 200) {
     let str;
+    let ar;
+    let x;
+    let r;
     while (s.size !== 0) {
         str = pop(s);
         console.log('str = ',str);
-
-
+        ar = Array.prototype.map.call(str, e => Number(e));
+        x = { tape:ar, p:0, q};
+        r =  checkMany(x);
+        console.log('1) r = ',r);
+        if (typeof r === 'string') {
+            x.p = ar.length - 1;
+            r =  checkMany(x);
+            if (typeof r === 'string') {
+                console.log('2) r = ',r);
+                return null;
+             }
+        }
+        f.add(str);
+        if (!f.has(r.join(''))) s.add(r.join(''));
     }
+    return f;
 }
-checkInterval(s,f);
+console.log(checkInterval(q0,s,f));
+
