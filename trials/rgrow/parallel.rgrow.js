@@ -8,7 +8,7 @@ let seed = [1,0,1]; // +
 let total = 0;
 let total1 = 0;
 let ruler = [1,0,1]; // both stop by eventually diverge
-let seed1 = seed.concat(ruler).concat(ruler); // both stop by eventually diverge
+let seed1 = seed.concat(ruler); // both stop by eventually diverge
 
 (function () {
     while ( i < 100) {

@@ -42,7 +42,7 @@ function manySteps(d, i= 0, limit = 5) {
 // -------------------------------------------
 function checkStep (d) {
     let t = step(d);
-    if (d.tape.length !== t.tape.length) return "Goes out right";
+    if (t.p > d.tape.length) return "Goes out right"; // one to the right OK
     if (t.p <= -1) return "Goes out left";
     return t;
 }
@@ -54,20 +54,17 @@ function checkMany(or, d = or, i= 0, limit = 200) {
     i++;
     let t = checkStep(d);
     // some check
-    if (or.p === 0 && t.p === d.tape.length - 1) {
-        if (or.q === t.q) return t; else return "tape = " + t.tape + " " +
+    if (or.p === 0 && t.p === d.tape.length) {
+        if (checkStep(or).q === t.q) return t; else t = "tape = " + t.tape + " " +
             " p = " + t.p + " " + t.q + "  = " + or.q
     }
-    if (or.p === d.tape.length - 1 && t.p === 0) {
-        if (or.q === t.q) return t; else return "tape = " + t.tape + " " +
-            " p = " + t.p + " " + t.q + "  = " + or.q
-    }
+
     return checkMany(or, t, i, limit);
 }
 //----------------------------------------
 let s = new Set();
 let f = new Set();
-x = { tape:[1,0,0,1,1], p:0, q: q0 }
+x = { tape:[0,0,0], p:0, q: q0 }
 s.add(x.tape.join(''));
 function checkInterval(q ,s ,f ,i= 0, limit = 200) {
     let str;
@@ -76,23 +73,43 @@ function checkInterval(q ,s ,f ,i= 0, limit = 200) {
     let r;
     while (s.size !== 0) {
         str = pop(s);
-        console.log('str = ',str);
+        console.log('str = ',str, ' s.size = ', s.size, ' f.size = ', f.size);
         ar = Array.prototype.map.call(str, e => Number(e));
         x = { tape:ar, p:0, q};
         r =  checkMany(x);
         console.log('1) r = ',r);
         if (typeof r === 'string') {
-            x.p = ar.length - 1;
-            r =  checkMany(x);
-            if (typeof r === 'string') {
-                console.log('2) r = ',r);
-                return null;
-             }
+            return r;
         }
         f.add(str);
-        if (!f.has(r.join(''))) s.add(r.join(''));
+        r = r.tape.join('');
+        if (!f.has(r)) s.add(r);
     }
     return f;
 }
-console.log(checkInterval(q0,s,f));
+//console.log(checkInterval(q0,s,f));
 
+//-----------------------------
+let temp = [0];
+s = new Set();
+s.add(x.tape.join(''));
+(function () {
+    let i = 0;
+    let res;
+    let tt = new Set();
+    while ( i < 100) {
+        i++;
+        let tape = [...temp];
+        f = new Set();
+        s = new Set();
+        s.add(tape.join(''));
+        res = checkInterval(q1,s,f);
+        console.log("test res = ",res);
+        if (res) tt.add(res);
+        if (temp.length === 0) temp = [0]; else
+            // temp = temp.concat(ruler);
+            tm("increment", temp, 100,q0,0,false);
+        // temp.push(Math.floor(Math.random() * 2));
+    }
+    console.log("result:", tt);
+})();
