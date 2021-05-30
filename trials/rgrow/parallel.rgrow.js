@@ -51,9 +51,9 @@ function checkMany (seed) {
     };
     return "All pass";
 }
-console.log(checkMany([1,0,1]));
-seed = [1,0,1,1,0,1  ];
-seed1 = [1,0,1,1,0,1,1,0,1,1,0,1,1,0,1  ];
+//console.log(checkMany([1,0,1]));
+seed = [1,0,1,1,0,1,1,0,1  ];
+seed1 = [1,0,1,1,0,1,1,0,1,1,0,1];
 (function () {
     temp = [0]
     while ( i < 1000) {
@@ -80,4 +80,4 @@ seed1 = [1,0,1,1,0,1,1,0,1,1,0,1,1,0,1  ];
            // temp.push(Math.floor(Math.random() * 2));
     }
     console.log("result:", res);
-});
+})();
