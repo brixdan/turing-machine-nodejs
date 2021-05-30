@@ -40,19 +40,20 @@ function checkMany (seed) {
         i++;
         r = Math.ceil(Math.random()*3) + 1;
         r1 = Math.ceil(Math.random()*3) + 1;
-        if (r === r1) r1++;
+        if (r === r1) r1 + 2;
+        r1 =  r + 2;
         console.log(' r = ', r,' r1 = ',r1)
         tape = Array(r).fill(seed).flat();
         tape1 = Array(r1).fill(seed).flat();
-        if (check(tape,tape1) === 0) return i + " tape = " + tape +
-            " tape1 =  " + tape1;
+        if (check(tape,tape1) === 0) return i + "no diverse! for tape = " + tape +
+            " tape1 =  " + tape1; else return i + "Diverse";
 
     };
     return "All pass";
 }
-// console.log(checkMany([1,0,1]));
-seed = [1,0,1,1,0,1,1,0,1 ];
-seed1 = [1,0,1,1,0,1,1,0,1,1,0,1 ];
+console.log(checkMany([1,0,1]));
+seed = [1,0,1,1,0,1  ];
+seed1 = [1,0,1,1,0,1,1,0,1,1,0,1,1,0,1  ];
 (function () {
     temp = [0]
     while ( i < 1000) {
@@ -79,4 +80,4 @@ seed1 = [1,0,1,1,0,1,1,0,1,1,0,1 ];
            // temp.push(Math.floor(Math.random() * 2));
     }
     console.log("result:", res);
-})();
+});

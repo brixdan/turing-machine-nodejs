@@ -4,6 +4,24 @@ const colors = require('colors');
 [L, R, halt, q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, B, w, m, n] =
     ["L", "R", "halt", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "B", "w", "m", "n"];
 
+Array.prototype.left = function(n) {
+    let r = [];
+    for (i = 0; i < this.length; i++) {
+        r[i - n] = this[i];
+    }
+    return r;
+};
+
+Array.prototype.toLeftString = function(n = 100) {
+    let r = [];
+    for (i = 0; i < this.length + n + 1; i++) {
+        if (i - n === 0) r[i] = '*';
+        else if (i - n < 0) r[i] = this[i - n];
+        else if ( this[i - n - 1] !== 'B' ) r[i + 1] = this[i - n - 1];
+    }
+    return r.join('');
+}
+
 const tm = function (
     script,
     tape,
