@@ -14,12 +14,24 @@ Array.prototype.left = function(n) {
 
 Array.prototype.toLeftString = function(n = 100) {
     let r = [];
+    if (!(this['-1'] in [undefined,'B'])) return this.join('');
     for (i = 0; i < this.length + n + 1; i++) {
         if (i - n === 0) r[i] = '*';
         else if (i - n < 0) r[i] = this[i - n];
-        else if ( this[i - n - 1] !== 'B' ) r[i + 1] = this[i - n - 1];
+        else if (this[i - n - 1] !== 'B') r[i + 1] = this[i - n - 1];
     }
     return r.join('');
+};
+
+String.prototype.toArray = function toArray () {
+    let r = [];
+    if (this.indexOf('*') > -1) {
+        for (let i = 0; i < this.length; i++)
+            if (i - this.indexOf('*') < 0)  r[i - this.indexOf('*')] = Number(this[i]);
+            else if (i - this.indexOf('*') > 0) r[i - this.indexOf('*') - 1] = Number(this[i]);
+        return r;
+    }
+    return Array.prototype.map.call(this, e => Number(e));
 }
 
 const tm = function (
@@ -32,6 +44,7 @@ const tm = function (
 ) {
     let step = 0;
     let name = '';
+    tape = (typeof tape === 'string')? tape.toArray():tape;
 
     if (typeof script === "string") (name = script, script = require("./TMs/" + script));
 
