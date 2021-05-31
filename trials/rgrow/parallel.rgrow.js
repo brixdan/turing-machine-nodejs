@@ -29,7 +29,7 @@ function check(seed,seed1) {
     return Object.keys(res).length;
 }
 
-console.log(check(seed,seed1));
+// console.log(check(seed,seed1));
 
 
 function checkMany (seed) {
@@ -52,8 +52,8 @@ function checkMany (seed) {
     return "All pass";
 }
 //console.log(checkMany([1,0,1]));
-seed = [1,0,1,1,0,1,1,0,1  ];
-seed1 = [1,0,1,1,0,1,1,0,1,1,0,1];
+seed = [1,1,1,1];
+seed1 = [1,1,1,1,1];
 (function () {
     temp = [0]
     while ( i < 1000) {
@@ -64,11 +64,11 @@ seed1 = [1,0,1,1,0,1,1,0,1,1,0,1];
         total = tm("rgrow", tape, 500, q0, 0, false);
         total1 = tm("rgrow", tape1, 500, q0, 0, false);
         //res[i++] = [...seed.concat(temp)] + "  " + total;
-        i++;
         if (typeof total !== typeof total1) {
             res[i] = [...seed.concat(temp)] + "  " + [...seed1.concat(temp)] + "  " + total + "  " + total1;
             break;
         }
+        i++;
         //temp.push(Math.floor(Math.random() * 2));
         // t = ruler.shift()
         //t = Math.floor(Math.random() * 2);

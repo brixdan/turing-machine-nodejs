@@ -27,6 +27,6 @@ let tape;
     let tape = [0, 0, 1, 1, 0, 0, 0].left(3).toLeftString();
     tape = "00*1100";
         let step = tm("rgrow", tape, 1000, q0, 0, true);
-        console.log(i + "] step = ", step);
+        console.log(i + "] step = ", step, typeof tape);
 
 })();

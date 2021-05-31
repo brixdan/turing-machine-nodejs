@@ -8,10 +8,11 @@ function compare(seed,seed1,L = 100) {
     let total1 = 0;
     let i = 0;
     while ( i < L) {
-        let tape = [...seed.concat(temp)];
-        let tape1 = [...seed1.concat(temp)];
+        let tape = [...seed.toArray().concat(temp)];
+        let tape1 = [...seed1.toArray().concat(temp)];
         total = tm("rgrow", tape, L*3, q0, 0, false);
         total1 = tm("rgrow", tape1, L*3, q0, 0, false);
+        // console.log("i = " + i + " compare:total1 = " + total1);
         i++;
         if (typeof total !== typeof total1) {
             res[i] = [...seed.concat(temp)] + "  " + [...seed1.concat(temp)] + "  " + total + "  " + total1;
@@ -21,35 +22,41 @@ function compare(seed,seed1,L = 100) {
     }
     return Object.keys(res).length;
 }
-let seed = Array(1).fill([1,0,1]).flat(); // +
-let seed1 = seed.concat([]); // both stop by eventually diverge
+let seed = '0' // Array(1).fill([1,0,1]).flat(); // +
+let seed1 = "101"; // seed.concat([]); // both stop by eventually diverge
 // console.log(compare(seed,seed1));
 
-function compareMany (arr = [[0]], nuvo, L = 100) {
+function compareMany (arr = ["0"], nuvo, L = 100) {
     for (let item of arr) {
-        if (compare(item, nuvo, L) === 0) return item;
+        if (arr.indexOf(nuvo) > -1) return 0;
+        if (compare(item, nuvo, L*3) === 0) {
+            console.log("compareMany: arr.length = " + arr.length + " nuvo = " + nuvo)
+            return item;
+        }
     }
-    return 'OK';
+    return 1;
 }
-// console.log(compareMany([[0], [1], [0,1], [1,0,1]], [1,0,1,1], 40));
+// console.log(compareMany(["0", "1", "01", "101"], "101101", 40));
 
-function buildRow (arr = [[0]], L = 10) {
-    let nuvo = [0], t;
+function buildRow (arr = ['0'], L = 10) {
+    let nuvo = [0], t, nuvoStr;
     let i = 0;
     let res = {}
     while ( i < L ) {
         //if (temp.length > 3) break;
         i++;
         tm("increment", nuvo, 500,q0,0,false);
+        nuvoStr = nuvo.toLeftString();
         if (nuvo in arr) continue;
-        t = compareMany(arr, nuvo);
-        res[i] = "nuvo = " + nuvo + " t = " + t + " temp = " + temp + " arr = " + arr;
-        if (t === 'string') arr.push(nuvo);
+        t = compareMany(arr, nuvoStr);
+        if (t === 1) arr.push(nuvoStr);
+        res[i] = "nuvoStr = " + nuvoStr + " t = " + t + " arr = " + arr;
+
 
 
     };
     return res;
 }
 
-// console.log(buildRow([[1]],5));
+console.log(buildRow(['101'],50));
 // console.log([1].toLeftString());
