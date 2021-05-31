@@ -15,11 +15,12 @@ function compare(seed,seed1,L = 100) {
         // console.log("i = " + i + " compare:total1 = " + total1);
         i++;
         if (typeof total !== typeof total1) {
-            res[i] = [...seed.concat(temp)] + "  " + [...seed1.concat(temp)] + "  " + total + "  " + total1;
+            res[i] = [...seed.toArray().concat(temp)] + "  " + [...seed1.toArray().concat(temp)] + "  " + total + "  " + total1;
             break;
         }
         tm("increment", temp, L, q0,0,false);
     }
+    console.log("res = ", res);
     return Object.keys(res).length;
 }
 let seed = '0' // Array(1).fill([1,0,1]).flat(); // +
@@ -51,12 +52,19 @@ function buildRow (arr = ['0'], L = 10) {
         t = compareMany(arr, nuvoStr);
         if (t === 1) arr.push(nuvoStr);
         res[i] = "nuvoStr = " + nuvoStr + " t = " + t + " arr = " + arr;
-
-
-
     };
     return res;
 }
 
-console.log(buildRow(['101'],50));
+//console.log(buildRow(['101'],50));
 // console.log([1].toLeftString());
+// Result: Array(30), starting of '101' for 5 minutes work:
+arr =   ['101','1','01','11','001','011','111','1001','1101','0011','1011','1111',
+        '10001','11001','00101','11101','11011','10111','11111','100001','110001',
+        '101001','111001','000101','110101','101101','011101','111101','000011'];
+        nuvo = '100011';
+//console.log(compareMany(arr, "100011", 50));
+
+let a =[0,1,1,1,0,1];
+let b = [1,0,0,0,1,1];
+console.log(compare(a.toLeftString(),b.toLeftString()),50); //125  infinity'
