@@ -14,7 +14,7 @@ Array.prototype.left = function(n) {
 
 Array.prototype.toLeftString = function(n = 100) {
     let r = [];
-    if (!(this['-1'] in [undefined,'B'])) return this.join('');
+    if ((this['-1'] === undefined || this[-1] ==='B')) return this.join('');
     for (i = 0; i < this.length + n + 1; i++) {
         if (i - n === 0) r[i] = '*';
         else if (i - n < 0) r[i] = this[i - n];
