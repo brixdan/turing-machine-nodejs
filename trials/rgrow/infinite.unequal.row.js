@@ -61,15 +61,11 @@ function buildRow (arr = ['0'], L = 10) {
     return res;
 }
 
-console.log(buildRow(['1'],5));
+console.log(buildRow(['101'],10));
 // Result: Array(30), starting of '101' for 5 minutes work:
 arr =   ['101','1','01','11','001','011','111','1001','1101','0011','1011','1111',
         '10001','11001','00101','11101','11011','10111','11111','100001','110001',
         '101001','111001','000101','110101','101101','011101','111101','000011'];
         nuvo = '100011';
-// console.log(compareMany(arr, "100011", 50));
-
-let a =[0,1,1,1,0,1];
-let b = [1,0,0,0,1,1];
-// console.log(compare(a.toLeftString(),b.toLeftString()),50); //125  infinity'
-console.log("memo = ",memo, "memo.length = ", Object.keys(memo).length); //125  infinity'
+ console.log("memo = ",memo, "memo.length = ", Object.keys(memo).length); //125  infinity'
+// '761': '1,1,0,0,0,1,1,1,1,1,0,1  0,1,0,1,0,0,0,1,1,1,1,1,0,1  3069  infinity'
