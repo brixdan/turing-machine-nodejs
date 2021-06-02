@@ -52,6 +52,20 @@ Object.prototype.loadData = function loadData(path) {
     }
 }
 
+Array.compareTapes = function compareTapes(x,y) {
+    let t = x.length - y.length;
+    if (t !== 0) return t; else
+    if (x.length > 0) {
+        t = x[x.length - 1] - y[y.length - 1];
+        if (t !== 0) return t; else {
+            x = x.slice(0, x.length - 1);
+            y = y.slice(0, y.length - 1);
+            return compareTapes(x, y)
+        }
+    }
+    return 0;
+}
+
 const tm = function (
     script,
     tape,

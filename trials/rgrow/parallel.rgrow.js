@@ -48,14 +48,14 @@ function checkMany (seed) {
         if (check(tape,tape1) === 0) return i + "no diverse! for tape = " + tape +
             " tape1 =  " + tape1; else return i + "Diverse";
 
-    };
+    }
     return "All pass";
 }
 //console.log(checkMany([1,0,1]));
-seed = [1,1,1,1];
-seed1 = [1,1,1,1,1];
+seed = [0,0,1,1];
+seed1 = [1,1,1,1];
 (function () {
-    temp = [0]
+    temp = []
     while ( i < 1000) {
 
         tape = [...seed.concat(temp)];

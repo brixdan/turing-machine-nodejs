@@ -1,43 +1,46 @@
 const { tm } = require('../../engine');
-const fs = require('fs');
-// Only work with strings
+// Only deal with strings
 
 let memo = {}; // to remember results
 
-function compare(seed,seed1,L = 100) {
-    let temp = [0];
+function compare(seed,seed1, depth, aheads) {
+    let temp;
     let res = {};
     let total = 0;
     let total1 = 0;
     let i = 0;
-    while ( i < L) {
-        let tape = [...seed.toArray().concat(temp)];
-        total = (memo[tape.toLeftString()])?memo[tape.toLeftString()]:
-        tm("rgrow", tape, L*10, q0, 0, false);
-        memo[[...seed.toArray().concat(temp)].toLeftString()] = total;
-        let tape1 = [...seed1.toArray().concat(temp)];
-        total1 = (memo[tape1.toLeftString()])?memo[tape1.toLeftString()]:
-        tm("rgrow", tape1, L*10, q0, 0, false);
-        memo[[...seed1.toArray().concat(temp)].toLeftString()] = total1;
+    let cycles = aheads * Math.max(seed.length,seed1.length);
+    while ( i < cycles) {
+        let t = temp?seed.toArray().concat(temp):seed.toArray();
+        let t1 = temp?seed1.toArray().concat(temp):seed1.toArray();
+
+        let tape = [...t];
+        total = (memo[tape.toLeftString()]) ??
+        tm("rgrow", tape, depth * tape.length, q0, 0, false);
+        memo[[...t].toLeftString()] = total;
+        let tape1 = [...t1];
+        total1 = (memo[tape1.toLeftString()]) ??
+        tm("rgrow", tape1, depth * tape.length, q0, 0, false);
+        memo[[...t1].toLeftString()] = total1;
         i++;
         if (typeof total !== typeof total1) {
-            res[i] = [...seed.toArray().concat(temp)] + "  " + [...seed1.toArray().concat(temp)] + "  " + total + "  " + total1;
+            res[i] = [...t] + "  " + [...t1] + "  " + total + "  " + total1;
             break;
         }
-        tm("increment", temp, L, q0,0,false);
+        temp = temp ?? [0];
+        tm("increment", temp, 100, q0,0,false);
     }
     console.log("res = ", res);
     return Object.keys(res).length;
 }
-let seed = '0' // Array(1).fill([1,0,1]).flat(); // +
-let seed1 = "101"; // seed.concat([]); // both stop by eventually diverge
+// let seed = '0' // Array(1).fill([1,0,1]).flat(); // +
+// let seed1 = "101"; // seed.concat([]); // both stop by eventually diverge
 // console.log(compare(seed,seed1));
 
-function compareMany (arr = ["0"], nuvo, L = 100) {
+function compareMany (arr = ["0"], nuvo, depth, aheads) {
     for (let item of arr) {
         if (arr.indexOf(nuvo) > -1) return 0;
-        if (compare(item, nuvo, L*10) === 0) {
-            console.log("compareMany: arr.length = " + arr.length + " nuvo = " + nuvo)
+        if (compare(item, nuvo, depth, aheads) === 0) {
             return item;
         }
     }
@@ -45,32 +48,53 @@ function compareMany (arr = ["0"], nuvo, L = 100) {
 }
 // console.log(compareMany(["0", "1", "01", "101"], "101101", 40));
 
-function buildRow (arr = ['0'], L = 10) {
+// Size is a gauge for lookup of a new candidates for divergent group.
+// Some of them will not pass a test, so it must be about two times the desired
+// size of a group
+// Depth is a gauge for a number of steps, required to identify that process
+// went into loop. Must depend on number size.
+// Aheads is a gauge for a number of lookups in the future to identify
+// divergency in the process of parallel growth. Fraction to number size.
+function buildDivGroup (arr = ['0'], size = 10,
+    depth = 500, aheads = 2 ) {
     let nuvo = [0], t, nuvoStr;
     let i = 0;
     let res = {}
-    while ( i < L ) {
+    while ( i < size*2 ) {
         //if (temp.length > 3) break;
         i++;
-        tm("increment", nuvo, 1000,q0,0,false);
+        tm("increment", nuvo, 100,q0,0,false);
         nuvoStr = nuvo.toLeftString();
-        if (nuvo in arr) continue;
-        t = compareMany(arr, nuvoStr, L);
-        if (t === 1) arr.push(nuvoStr);
-        res[i] = "nuvoStr = " + nuvoStr + " t = " + t + " arr = " + arr;
-    };
-    return res;
+        if (nuvoStr in arr) continue;
+        t = compareMany(arr, nuvoStr, depth, aheads);
+        if (t === 1) {
+            arr.push(nuvoStr);
+        }
+        else // nuvo fails, log the cause
+        res[i] = "!!!Failed nuvo = " + nuvoStr + " caused by " + t;
+    }
+    console.log("buildDivGroup problems:", res);
+    return [...arr];
+}
+try {
+    memo = require("../../_data/base1_size10_depth500.json");
+}
+catch {
+    memo = {}
 }
 
-memo = JSON.parse(memo.loadData("../../_data/base1_l10.txt"));
-let obj = buildRow(['1'],20);// base1_l10.txt
 
-console.log("Row = ", obj);
+let divGroup = buildDivGroup(['1'],10, depth = 200, aheads = 10);// base1_l10.txt
+let memoSorted = Object.keys(memo).sort(Array.compareTapes).map(val => val + ":" + memo[val]);
+memo.storeData(memo,"../../_data/base1_size10_depth200.json");
+memo.storeData(memoSorted,"../../_data/sorted-base1_size10_depth200.json");
+memo.storeData(divGroup,"../../_data/divGroup-base1_size10_depth200.json");
+
+
+// console.log("Div group = ", divGroup, divGroup.length);
 
 // Result: Array(30), starting of '101' for 5 minutes work:
 arr =   ['101','1','01','11','001','011','111','1001','1101','0011','1011','1111',
         '10001','11001','00101','11101','11011','10111','11111','100001','110001',
         '101001','111001','000101','110101','101101','011101','111101','000011'];
         nuvo = '100011';
- console.log("memo = ",memo, "memo.length = ", Object.keys(memo).length); //125  infinity'
-// '761': '1,1,0,0,0,1,1,1,1,1,0,1  0,1,0,1,0,0,0,1,1,1,1,1,0,1  3069  infinity'
