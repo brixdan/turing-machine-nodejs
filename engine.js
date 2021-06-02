@@ -1,5 +1,6 @@
 // My compact Turing Machine
 const colors = require('colors');
+const fs = require('fs');
 // Prepare symbols:
 [L, R, halt, q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, B, w, m, n] =
     ["L", "R", "halt", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "B", "w", "m", "n"];
@@ -32,6 +33,23 @@ String.prototype.toArray = function toArray () {
         return r;
     }
     return Array.prototype.map.call(this, e => Number(e));
+}
+
+Object.prototype.storeData = function storeData(data,path) {
+    try {
+        fs.writeFileSync(path, JSON.stringify(data))
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+Object.prototype.loadData = function loadData(path) {
+    try {
+        return fs.readFileSync(path, 'utf8')
+    } catch (err) {
+        console.error(err)
+        return false
+    }
 }
 
 const tm = function (
