@@ -10,6 +10,7 @@ function compare(seed,seed1, depth, aheads) {
     let total1 = 0;
     let i = 0;
     let cycles = aheads * Math.max(seed.length,seed1.length);
+
     while ( i < cycles) {
         let t = temp?seed.toArray().concat(temp):seed.toArray();
         let t1 = temp?seed1.toArray().concat(temp):seed1.toArray();
@@ -18,10 +19,18 @@ function compare(seed,seed1, depth, aheads) {
         total = (memo[tape.toLeftString()]) ??
         tm("rgrow", tape, depth * tape.length, q0, 0, false);
         memo[[...t].toLeftString()] = total;
+        if (typeof total === 'number' && total > memo['champ'].steps) {
+            memo['champ'].steps = total;
+            memo['champ'].tape = t;
+        }
         let tape1 = [...t1];
         total1 = (memo[tape1.toLeftString()]) ??
         tm("rgrow", tape1, depth * tape.length, q0, 0, false);
         memo[[...t1].toLeftString()] = total1;
+        if (typeof total1 === 'number' && total1 > memo['champ'].steps) {
+            memo['champ'].steps = total1;
+            memo['champ'].tape = t1;
+        }
         i++;
         if (typeof total !== typeof total1) {
             res[i] = [...t] + "  " + [...t1] + "  " + total + "  " + total1;
@@ -74,22 +83,25 @@ function buildDivGroup (arr = ['0'], size = 10,
         res[i] = "!!!Failed nuvo = " + nuvoStr + " caused by " + t;
     }
     console.log("buildDivGroup problems:", res);
+    arr.push(memo['champ']);
     return [...arr];
 }
+//------------------------------------
 try {
     memo = require("../../_data/base1_size10_depth500.json");
 }
 catch {
     memo = {}
 }
-
+memo['champ'] = memo['champ'] ?? {steps:0, tape:""};
 
 let divGroup = buildDivGroup(['1'],10, depth = 200, aheads = 10);// base1_l10.txt
 let memoSorted = Object.keys(memo).sort(Array.compareTapes).map(val => val + ":" + memo[val]);
 memo.storeData(memo,"../../_data/base1_size10_depth200.json");
 memo.storeData(memoSorted,"../../_data/sorted-base1_size10_depth200.json");
+divGroup['champ'] = memo['champ'];
 memo.storeData(divGroup,"../../_data/divGroup-base1_size10_depth200.json");
-
+console.log('champ = ',memo['champ'])
 
 // console.log("Div group = ", divGroup, divGroup.length);
 
