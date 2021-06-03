@@ -4,7 +4,7 @@ const { tm } = require('../../engine');
 let memo = {}; // to remember results
 
 function compare(seed,seed1, depth, aheads) {
-    let temp;
+    let temp = [];
     let res = {};
     let total = 0;
     let total1 = 0;
@@ -88,14 +88,14 @@ function buildDivGroup (arr = ['0'], size = 10,
 }
 //------------------------------------
 try {
-    memo = require("../../_data/base1_size10_depth500.json");
+    memo = require("../../_data/base1_size10_depth200.json");
 }
 catch {
     memo = {}
 }
 memo['champ'] = memo['champ'] ?? {steps:0, tape:""};
 
-let divGroup = buildDivGroup(['1'],10, depth = 200, aheads = 10);// base1_l10.txt
+let divGroup = buildDivGroup(['0', '1'],10, depth = 200, aheads = 10);// base1_l10.txt
 let memoSorted = Object.keys(memo).sort(Array.compareTapes).map(val => val + ":" + memo[val]);
 memo.storeData(memo,"../../_data/base1_size10_depth200.json");
 memo.storeData(memoSorted,"../../_data/sorted-base1_size10_depth200.json");

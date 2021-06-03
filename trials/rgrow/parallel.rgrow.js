@@ -52,8 +52,8 @@ function checkMany (seed) {
     return "All pass";
 }
 //console.log(checkMany([1,0,1]));
-seed = [0,0,1,1];
-seed1 = [1,1,1,1];
+seed = [0];
+seed1 = [1];
 (function () {
     temp = []
     while ( i < 1000) {
