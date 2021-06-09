@@ -17,8 +17,8 @@ function check(seed,seed1) {
 
         let tape = [...seed.concat(temp)];
         let tape1 = [...seed1.concat(temp)];
-        total = tm("rgrow", tape, 500, q0, 0, false);
-        total1 = tm("rgrow", tape1, 500, q0, 0, false);
+        total = tm("rgrow", tape, 50000, q0, 0, false);
+        total1 = tm("rgrow", tape1, 50000, q0, 0, false);
         i++;
         if (typeof total !== typeof total1) {
             res[i] = [...seed.concat(temp)] + "  " + [...seed1.concat(temp)] + "  " + total + "  " + total1;
@@ -26,10 +26,12 @@ function check(seed,seed1) {
         }
         tm("increment", temp, 500,q0,0,false);
     }
+    console.log("res = ",res)
     return Object.keys(res).length;
 }
-
-// console.log(check(seed,seed1));
+seed = "100001".toArray()
+seed1 = "1000001".toArray()
+console.log(check(seed,seed1));
 
 
 function checkMany (seed) {
@@ -80,4 +82,4 @@ seed1 = [1];
            // temp.push(Math.floor(Math.random() * 2));
     }
     console.log("result:", res);
-})();
+});

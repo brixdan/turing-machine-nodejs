@@ -31,7 +31,7 @@ let tape;
     tape = [0,1,0,1,0,0,0,1,1,1,1,1,0,1]; // infinity?? NO!!! 14 digits
     // rgrow: step 3165: 0 1 1 1 1 0 0 1 1 1 1 1 0 0 1 0 B total: 3165
     str = '111010000101';// '111010000101': 163
-    tape = str.toArray();
+    tape = "10000010".toArray()
     let step = tm("rgrow", tape, 5500, q0, 0, true);
     console.log(" step = ", step, typeof tape);
 
