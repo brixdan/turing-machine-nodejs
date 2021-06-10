@@ -29,9 +29,13 @@ function check(seed,seed1) {
     console.log("res = ",res)
     return Object.keys(res).length;
 }
-seed = "100001".toArray()
-seed1 = "1000001".toArray()
+seed = "101101101".toArray()
+seed1 = "101101101101".toArray()
 console.log(check(seed,seed1));
+// res =  {
+//     '47': '1,0,1,1,0,1,1,0,1,0,1,1,1,0,1  1,0,1,1,0,1,1,0,1,1,0,1,0,1,1,1,0,1  23595  infinity'
+// }
+
 
 
 function checkMany (seed) {
