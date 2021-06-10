@@ -11,8 +11,8 @@ function pop(s) {
 let tape;
 let script = require("../../TMs/" + "rgrow");
 
-function step(d) {
-    let tape = [...d.tape]; p = d.p; q = d.q; // don't change income!!!
+function step(script,d) {
+    let tape = Object.assign([], d.tape); p = d.p; q = d.q; // don't change income!!!
     with (script[q][tape[p] ?? "B"]) {
         tape[p] = w
         q = n
@@ -28,6 +28,35 @@ function step(d) {
         }
         return {tape, p, q}
     }
+}
+
+function* tmg(d) {
+    // assert incoming data
+    // data = {script:string, tape:array, p:number, q: string }
+    function assertType(d) {
+        return (typeof d === 'object' &&
+        typeof d.script === 'string' &&
+        d.tape instanceof Array &&
+        typeof d.p === 'number' &&
+        typeof d.q === 'string');
+    };
+    if (!assertType(d)) return new Error("TMG type invalid");
+    let script = require("../../TMs/" + d.script);
+    let _d = {}; _d.tape = Object.assign([], d.tape);  _d.p = d.p; _d.q = d.q;
+    while (_d.q !== 'halt') {
+        yield _d;
+        _d = step(script,_d);
+    }
+    return _d;
+}
+
+let res = {}
+let it = tmg({script:"rgrow",tape:'111010000101'.toArray(), p:0, q:q0});
+for (let i = 0; i < 40000; i++) {
+    let t = it.next();
+    //console.log(i,t);
+    if (t.value.p === 3) console.log(i,t.value.q);
+    if (t.done) break;
 }
 
 function manySteps(d, i= 0, limit = 5) {
@@ -112,4 +141,4 @@ s.add(x.tape.join(''));
         // temp.push(Math.floor(Math.random() * 2));
     }
     console.log("result:", tt);
-})();
+});
