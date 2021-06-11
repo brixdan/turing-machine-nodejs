@@ -32,7 +32,8 @@ let tape;
     // rgrow: step 3165: 0 1 1 1 1 0 0 1 1 1 1 1 0 0 1 0 B total: 3165
     str = '111010000101';// '111010000101': 163
     tape = "101".toArray()
-    let step = tm("rgrow", tape, 5500, q0, 0, true);
+    tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]
+    let step = tm("rgrow", tape, 55, q0, 0, true);
     console.log(" step = ", step, typeof tape);
 
 })();

@@ -130,6 +130,44 @@ function show(ar, p, shift = 20) {
 
 module.exports.tm = tm;
 
+module.exports.tmg = function* tmg(d) {
+    // assert incoming data
+    // data = {script:string, tape:array, p:number, q: string }
+    function assertType(d) {
+        return (typeof d === 'object' &&
+            typeof d.script === 'string' &&
+            Array.isArray(d.tape) &&
+            typeof d.p === 'number' &&
+            typeof d.q === 'string');
+    }
+    if (!assertType(d)) return new Error("TMG type invalid");
+    let script = require("./TMs/" + d.script);
+    function step(d) {
+        let tape = Object.assign([], d.tape); p = d.p; q = d.q; // don't change income!!!
+        with (script[q][tape[p] ?? "B"]) {
+            tape[p] = w
+            q = n
+            switch (m) {        // move to next p-position
+                case L:
+                    p = p - 1;
+                    break;
+                case R:
+                    p = p + 1;
+                    break;
+                default:
+                    p = m; // or jump -)
+            }
+            return {tape, p, q}
+        }
+    }
+    let _d = {}; _d.tape = Object.assign([], d.tape);  _d.p = d.p; _d.q = d.q;
+    while (_d.q !== 'halt') {
+        yield _d;
+        _d = step(_d);
+    }
+    return _d;
+}
+
 
 
 

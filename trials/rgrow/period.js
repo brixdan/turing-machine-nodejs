@@ -1,4 +1,4 @@
-const { tm } = require('../../engine')
+const { tm, tmg } = require('../../engine')
 
 // pop from Set
 function pop(s) {
@@ -11,54 +11,27 @@ function pop(s) {
 let tape;
 let script = require("../../TMs/" + "rgrow");
 
-function step(script,d) {
-    let tape = Object.assign([], d.tape); p = d.p; q = d.q; // don't change income!!!
-    with (script[q][tape[p] ?? "B"]) {
-        tape[p] = w
-        q = n
-        switch (m) {        // move to next p-position
-            case L:
-                p = p - 1;
-                break;
-            case R:
-                p = p + 1;
-                break;
-            default:
-                p = m; // or jump -)
-        }
-        return {tape, p, q}
-    }
-}
 
-function* tmg(d) {
-    // assert incoming data
-    // data = {script:string, tape:array, p:number, q: string }
-    function assertType(d) {
-        return (typeof d === 'object' &&
-        typeof d.script === 'string' &&
-        d.tape instanceof Array &&
-        typeof d.p === 'number' &&
-        typeof d.q === 'string');
-    };
-    if (!assertType(d)) return new Error("TMG type invalid");
-    let script = require("../../TMs/" + d.script);
-    let _d = {}; _d.tape = Object.assign([], d.tape);  _d.p = d.p; _d.q = d.q;
-    while (_d.q !== 'halt') {
-        yield _d;
-        _d = step(script,_d);
-    }
-    return _d;
-}
+
+
 
 let res = {}
-let it = tmg({script:"rgrow",tape:'111010000101'.toArray(), p:0, q:q0});
+ // let it = tmg({script:"rgrow",tape:[1,0,1,1,0,1,1,0,1,0,1,1,1,0,1] , p:0, q:q0});
+ let it = tmg({script:"rgrow",tape:[1,0,1] , p:0, q:q0});
+// let it = tmg({script:"rgrow",tape:[1,0,1,1,0,1,1,0,1,1,0,1,1,0,1] , p:0, q:q0});
 for (let i = 0; i < 40000; i++) {
     let t = it.next();
     //console.log(i,t);
-    if (t.value.p === 3) console.log(i,t.value.q);
-    if (t.done) break;
+    // if (t.value.p === 3) console.log(i,t.value.q);
+    console.log(i,t.value.tape.toLeftString(1000));
+    if (t.done)
+    {
+        console.log(i,t); break;
+    }
 }
 
+
+// ---------------------------------
 function manySteps(d, i= 0, limit = 5) {
      if (i >= limit) return d;
      i++;
