@@ -12,7 +12,12 @@ Array.prototype.left = function(n) {
     }
     return r;
 };
-
+Number.prototype.isPrime = function isPrime() {
+    if (isNaN(this) || !isFinite(this) || this%1 || this<2) return false;
+    var m=Math.sqrt(this); //returns the square root of the passed value
+    for (var i=2;i<=m;i++) if (this%i==0) return false;
+    return true;
+}
 Array.prototype.toLeftString = function(n = 100) {
     let r = [];
     if ((this['-1'] === undefined || this[-1] ==='B')) return this.join('');
@@ -34,7 +39,9 @@ String.prototype.toArray = function toArray () {
     }
     return Array.prototype.map.call(this, e => Number(e));
 }
-
+String.prototype.reverse = function reverse () {
+        return this.split("").reverse().join("");
+}
 Object.prototype.storeData = function storeData(data,path) {
     try {
         fs.writeFileSync(path, JSON.stringify(data))
