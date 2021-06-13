@@ -18,6 +18,21 @@ Number.prototype.isPrime = function isPrime() {
     for (var i=2;i<=m;i++) if (this%i==0) return false;
     return true;
 }
+Number.prototype.binaryNext = function binaryNext() {
+    return Math.pow(2,this.toString(2).length)
+}
+Number.prototype.increase = function* increase() {
+    const str = this.toString(2).reverse();
+    const bn = this.binaryNext();
+    var i = 0;
+    while(true) {
+        // yield +('0b'+(str + i.toString(2).reverse()).reverse());
+        // this version just to ensure compatibility with MT
+        yield this + i*bn;
+        i++;
+    }
+    return;
+}
 Array.prototype.toLeftString = function(n = 100) {
     let r = [];
     if ((this['-1'] === undefined || this[-1] ==='B')) return this.join('');

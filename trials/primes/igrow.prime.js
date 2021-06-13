@@ -1,15 +1,6 @@
 const { tm, tmg } = require('../../engine')
 const p1000 = require('../../_data/primes/primes1000.json')
 
-function* increment(num/*number*/) {
-    const str = num.toString(2).reverse();
-    var i = 0;
-    while(true) {
-        yield +('0b'+(str + i.toString(2).reverse()).reverse());
-        i++;
-    }
-    return;
-}
 function checkTwo(a,b/*numbers*/) {
     if (isNaN(a) || !isFinite(a) || a%1 || a<2)
     {
@@ -25,8 +16,8 @@ function checkTwo(a,b/*numbers*/) {
         console.log("Equals a==b",a==b);
         return false;
     }
-    let it = increment(a);
-    let it1 = increment(b);
+    let it = a.increase();
+    let it1 = b.increase();
     var res = {}, i = 0
     while(true) {
         let n = it.next().value;
@@ -65,5 +56,5 @@ function checkDiv(div/*number*/,set/*array*/) {
     return true;
 }
 
- // console.log(checkDiv(7933,p1000))
+  console.log(checkDiv(7933,p1000))
 //console.log(p1000.indexOf(7919))
