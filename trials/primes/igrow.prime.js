@@ -1,7 +1,7 @@
 const { tm, tmg } = require('../../engine')
 const p1000 = require('../../_data/primes/primes1000.json')
 
-function checkTwo(a,b/*numbers*/) {
+function checkTwo(a,b/*numbers*/, v = true/*boolean*/) {
     if (isNaN(a) || !isFinite(a) || a%1 || a<2)
     {
         console.log('Bad type of a: ' + a);
@@ -31,23 +31,23 @@ function checkTwo(a,b/*numbers*/) {
         }
         i++;
     }
-    console.log(res);
+    if ( v ) console.log(res);
     // return Object.keys(res).length;
     return i;
 }
 //console.log(checkTwo(5,13));
-console.log(checkTwo( 7933,1951));
+console.log(checkTwo( 7933,1951, false));
 
-function checkDiv(div/*number*/,set/*array*/) {
+function checkDiv(div/*number*/,set/*array*/,v = true) {
     if (set.indexOf(div) > -1) {
         console.log('' + div + ' contains in set ' + set)
         return false;
     }
     let j = 1, champ = {step:1,desc:""};
     for (const setElement of set) {
-        j = checkTwo(div,setElement);
+        j = checkTwo(div,setElement, v);
         if (!j) return false;
-        if (j > champ.step) {
+        if (j >= champ.step) {
             champ.step = j;
             champ.desc = "for a = " + div + " b = " + setElement;
         }
@@ -56,5 +56,13 @@ function checkDiv(div/*number*/,set/*array*/) {
     return true;
 }
 
-  console.log(checkDiv(7933,p1000))
+  console.log(checkDiv(7933,p1000, false))
 //console.log(p1000.indexOf(7919))
+var temp = [];
+for (const p1000Element of p1000) {
+    temp = [...p1000];
+    temp.splice(temp.indexOf(p1000Element), 1);
+    temp = temp.slice(temp.indexOf(p1000Element));
+    console.log(checkDiv(p1000Element, temp,false));
+}
+// Result: all primes diverge from each other via increase
