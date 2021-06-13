@@ -12,6 +12,9 @@ Array.prototype.left = function(n) {
     }
     return r;
 };
+Array.prototype.toNumber = function toNumber() {
+    return +("0b" + this.join('').reverse());
+}
 Number.prototype.isPrime = function isPrime() {
     if (isNaN(this) || !isFinite(this) || this%1 || this<2) return false;
     var m=Math.sqrt(this); //returns the square root of the passed value
@@ -20,6 +23,9 @@ Number.prototype.isPrime = function isPrime() {
 }
 Number.prototype.binaryNext = function binaryNext() {
     return Math.pow(2,this.toString(2).length)
+}
+Number.prototype.toTape = function toTape() {
+    return this.toString(2).reverse().split('').map(Number);
 }
 Number.prototype.increase = function* increase() {
     const str = this.toString(2).reverse();
