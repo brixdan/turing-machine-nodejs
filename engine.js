@@ -158,7 +158,7 @@ function show(ar, p, shift = 20) {
 
 module.exports.tm = tm;
 
-module.exports.tmg = function* tmg(d) {
+module.exports.tmg = function* tmg(d = {script:"", tape:[0], p:0, q: q0 }) {
     // assert incoming data
     // data = {script:string, tape:array, p:number, q: string }
     function assertType(d) {
