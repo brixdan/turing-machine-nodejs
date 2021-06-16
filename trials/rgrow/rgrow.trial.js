@@ -39,8 +39,14 @@ function toFile(path,data) {
         memo[d.p] = d.q;
         let str = '<td  align="right">';
         let t = '';
+        let color = '';
         for (let i = -limit; i < limit ; i++) {
-            str += `${(i === d.p)?'<b>'+(d.tape[i]??'')+'</b>':d.tape[i]??''}`
+            t = `${(i === d.p)?'<b>'+(d.tape[i]??'')+'</b>':d.tape[i]??''}`
+            color = memo[i] === q0? '<span style="color:blue">':
+                    memo[i] === q1?'<span style="color:green">':
+                    memo[i] === q2?'<span style="color:yellow">':
+                                   '<span style="color:black">';
+            str += (d.tape[i] !== undefined)? color + t + '</span>':'';
             if (i === -1) str += '</td><td bgcolor="#f0ffff">'
             if (i === l-1) str += '</td><td>'
         }
