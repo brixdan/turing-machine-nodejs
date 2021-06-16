@@ -159,16 +159,6 @@ function show(ar, p, shift = 20) {
 module.exports.tm = tm;
 
 module.exports.tmg = function* tmg(d = {script:"", tape:[0], p:0, q: q0 }) {
-    // assert incoming data
-    // data = {script:string, tape:array, p:number, q: string }
-    function assertType(d) {
-        return (typeof d === 'object' &&
-            typeof d.script === 'string' &&
-            Array.isArray(d.tape) &&
-            typeof d.p === 'number' &&
-            typeof d.q === 'string');
-    }
-    if (!assertType(d)) return new Error("TMG type invalid");
     let script = require("./TMs/" + d.script);
     function step(d) {
         let tape = Object.assign([], d.tape); p = d.p; q = d.q; // don't change income!!!
