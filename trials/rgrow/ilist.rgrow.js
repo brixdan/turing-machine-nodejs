@@ -5,7 +5,7 @@ let tape = [0];
 let temp = [0];
 let ruler = [0];
 
-(function () {
+function fn () {
     let s = '';
     for (let i = 0; i < 100; i++) {
         s = temp.toString()
@@ -17,9 +17,9 @@ let ruler = [0];
          //temp.push(Math.floor(Math.random() * 2));
     }
     console.log("result:", res);
-});
+};
 
-(function () {
++function () {
     let s = '';
     let t = 0;
     temp = [1,0,1]
@@ -39,4 +39,4 @@ let ruler = [0];
         //temp.push(t);
     }
     console.log("result:", res);
-})();
+}();
