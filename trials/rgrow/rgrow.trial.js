@@ -32,7 +32,8 @@ function toFile(path,data) {
     let it = tmg(d);
     var memo = {}, step = 0;
     memo[d.p] = d.q;
-    var html = '<div align="center"><table><thead align="right">Negative</thead><thead>Original</thead><thead>Positive</thead>'
+    var html = '<div align="center"><table><thead align="right">Negative</thead>' +
+        '<thead>Original</thead><thead>Positive</thead>' + '<tbody>'
     const limit = 50
     while(true) {
         let d = it.next().value;
@@ -42,20 +43,23 @@ function toFile(path,data) {
         let color = '';
         for (let i = -limit; i < limit ; i++) {
             t = `${(i === d.p)?'<u>'+(d.tape[i]??'*')+'</u>':d.tape[i]??''}`
-            color = memo[i] === q0? '<span style="color:darkblue">':
-                    memo[i] === q1?'<span style="color:red">':
-                    memo[i] === q2?'<span style="color:orange">':
-                                   '<span style="color:black">';
-            str += (d.tape[i] !== undefined||i===d.p)? color + t + '</span>':'*';
+            color = memo[i] === q0? '<b style="color:blue">':
+                    memo[i] === q1?'<b style="color:red">':
+                    memo[i] === q2?'<b style="color:orange">':
+                                   '<b style="color:black">';
+            str += (d.tape[i] !== undefined||i===d.p)? color + t + '</b>':'*';
             if (i === -1) str += '</td><td bgcolor="#f5f5f5">'
             if (i === l-1) str += '</td><td>'
         }
         str += '</td>'
         html += '<tr>' + str + '</tr>\n'
-        if (d.q === 'halt') break;
+        if (d.q === 'halt') {
+            html += `<tr><td></td><td>step = ${step}</td><td></td></tr>`;
+            break;
+        }
         step++;
     }
-    html +='</table></div>'
+    html +='</tbody></table></div>'
     toFile("../../html/index.html",html);
     console.log(html)
     console.log("step = ", step)
