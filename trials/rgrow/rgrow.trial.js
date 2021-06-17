@@ -32,22 +32,21 @@ function toFile(path,data) {
     let it = tmg(d);
     var memo = {}, step = 0;
     memo[d.p] = d.q;
-    var html = '<div align="center"><table>'
-    const limit = 200
+    var html = '<div align="center"><table><thead align="right">Negative</thead><thead>Original</thead><thead>Positive</thead>'
+    const limit = 50
     while(true) {
         let d = it.next().value;
         memo[d.p] = d.q;
-        let str = '<td  align="right">';
+        let str = '<td>';
         let t = '';
         let color = '';
         for (let i = -limit; i < limit ; i++) {
-            t = `${(i === d.p)?'<u>'+(d.tape[i]??'')+'</u>':d.tape[i]??''}`
-            color = i === d.p? '<span style="color:darkred">':
-                    memo[i] === q0? '<span style="color:darkblue">':
-                    memo[i] === q1?'<span style="color:green">':
-                    memo[i] === q2?'<span style="color:darkorange">':
+            t = `${(i === d.p)?'<u>'+(d.tape[i]??'*')+'</u>':d.tape[i]??''}`
+            color = memo[i] === q0? '<span style="color:darkblue">':
+                    memo[i] === q1?'<span style="color:red">':
+                    memo[i] === q2?'<span style="color:orange">':
                                    '<span style="color:black">';
-            str += (d.tape[i] !== undefined)? color + t + '</span>':'';
+            str += (d.tape[i] !== undefined||i===d.p)? color + t + '</span>':'*';
             if (i === -1) str += '</td><td bgcolor="#f5f5f5">'
             if (i === l-1) str += '</td><td>'
         }
