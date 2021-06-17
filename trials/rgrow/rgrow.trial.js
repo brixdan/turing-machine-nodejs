@@ -25,15 +25,15 @@ function toFile(path,data) {
 }
 
 +function () {
-    tape = [1,0,1]//rgrow: stop at step 23595:
+    tape = [1,0,1]//rgrow: stop at step 31
+    tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
     let l = tape.length;
-    let it = tmg({ script: "rgrow", tape, p: 0, q: q0 });
+    let d = { script: "rgrow", tape, p: 0, q: q0 };
+    let it = tmg(d);
     var memo = {}, step = 0;
-    memo[0] = tape[0]
-    memo[1] = tape[1]
-    memo[2] = tape[2]
+    memo[d.p] = d.q;
     var html = '<div align="center"><table>'
-    const limit = 5
+    const limit = 200
     while(true) {
         let d = it.next().value;
         memo[d.p] = d.q;
@@ -41,13 +41,14 @@ function toFile(path,data) {
         let t = '';
         let color = '';
         for (let i = -limit; i < limit ; i++) {
-            t = `${(i === d.p)?'<b>'+(d.tape[i]??'')+'</b>':d.tape[i]??''}`
-            color = memo[i] === q0? '<span style="color:blue">':
+            t = `${(i === d.p)?'<u>'+(d.tape[i]??'')+'</u>':d.tape[i]??''}`
+            color = i === d.p? '<span style="color:darkred">':
+                    memo[i] === q0? '<span style="color:darkblue">':
                     memo[i] === q1?'<span style="color:green">':
-                    memo[i] === q2?'<span style="color:yellow">':
+                    memo[i] === q2?'<span style="color:darkorange">':
                                    '<span style="color:black">';
             str += (d.tape[i] !== undefined)? color + t + '</span>':'';
-            if (i === -1) str += '</td><td bgcolor="#f0ffff">'
+            if (i === -1) str += '</td><td bgcolor="#f5f5f5">'
             if (i === l-1) str += '</td><td>'
         }
         str += '</td>'
@@ -58,4 +59,5 @@ function toFile(path,data) {
     html +='</table></div>'
     toFile("../../html/index.html",html);
     console.log(html)
+    console.log("step = ", step)
 }();
