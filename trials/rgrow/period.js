@@ -102,7 +102,7 @@ s.add(x.tape.join(""));
     s = new Set();
     s.add(tape.join(""));
     res = checkInterval(q1, s, f);
-    console.log("test res = ", res);
+    console.log("rgrowim res = ", res);
     if (res) tt.add(res);
     if (temp.length === 0) temp = [0];
     // temp = temp.concat(ruler);

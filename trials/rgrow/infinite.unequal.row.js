@@ -62,7 +62,7 @@ function compareMany(arr = ["0"], nuvo, depth, aheads) {
 // console.log(compareMany(["0", "1", "01", "101"], "101101", 40));
 
 // Size is a gauge for lookup of a new candidates for divergent group.
-// Some of them will not pass a test, so it must be about two times the desired
+// Some of them will not pass a rgrowim, so it must be about two times the desired
 // size of a group
 // Depth is a gauge for a number of steps, required to identify that process
 // went into loop. Must depend on number size.
