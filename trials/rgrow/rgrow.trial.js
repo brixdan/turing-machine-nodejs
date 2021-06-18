@@ -26,7 +26,8 @@ function toFile(path,data) {
 
 
 +function visual () {
-    tape = [1,1,0,0,0,0,0,1,1]//rgrow: stop at step 31
+    tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
+    tape = [1,1,0,0,0,0,0,1]//rgrow: halt@46
     //tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
     //tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
     let l = tape.length;
@@ -36,9 +37,9 @@ function toFile(path,data) {
     memo[d.p] = d.q;
     var html = '<link href="index.css" rel="stylesheet">' +
         '<div align="center"><table><th align="right">Negative</th>' +
-        '<td>Ori</td><td>Positive</td><tbody>\n'
+        '<td>Original</td><td>Positive</td><tbody>\n'
     const limit = 200
-    while(step < 1000) {
+    while(step < 3000) {
         let d = it.next().value;
         memo[d.p] = d.q;
         let str = '<th>';
@@ -51,7 +52,7 @@ function toFile(path,data) {
                     memo[i] === q2?'<b2>' + t + '</b2>':
                                    '<b>' + t + '</b>';
             str += (d.tape[i] !== undefined||i===d.p)? color:'';
-            if (i === -1) str += '</th><td bgcolor="#f5f5f5">'
+            if (i === -1) str += '</th><td>'
             if (i === l-1) str += '</td><td>'
         }
         str += '</td>'

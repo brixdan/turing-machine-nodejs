@@ -14,3 +14,7 @@ b2 {
     color:orange;
     font-weight: bold;
 }
+table, th, td {
+    border: 1px solid black;
+    font-size: 10px;
+}
