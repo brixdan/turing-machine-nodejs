@@ -27,7 +27,7 @@ function toFile(path,data) {
 
 +function visual () {
     tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
-    tape = [1,1,0,0,0,0,0,1]//rgrow: halt@46
+   // tape = [1,1,0,0,0,0,0,1]//rgrow: halt@46
     //tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
     //tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
     let l = tape.length;
@@ -66,7 +66,23 @@ function toFile(path,data) {
     }
     html +=`</tbody></table>\n
             step = ${step}</div>`
-    toFile("../../html/index.html",html);
+    toFile("../../_html/index.html",html);
     console.log(html)
     console.log("step = ", step === infin?'infinity':step)
 }();
+
++function enumerate () {
+    let s = '';
+    let t = 0;
+    let temp = [0];
+    let res = {}
+    while (t < 100) {
+        s = temp.toString()
+        tape = [...temp];
+        let total = tm("rgrow", tape, 50000, q0, 0, false);
+        res[s] = total;
+        tm("increment", temp, 1000,q0,0,false);
+        t++;
+    }
+    console.log("result:", res);
+};
