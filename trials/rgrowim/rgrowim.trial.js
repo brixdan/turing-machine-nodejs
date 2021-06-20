@@ -37,7 +37,7 @@ function toFile(path,data) {
     var memo = {}, step = 0;
     memo[d.p] = d.q;
     var html = '<link href="index.css" rel="stylesheet">' +
-        '<div align="center"><table><th align="right">Negative</th>' +
+        '<div align="center"><table><th>Negative</th>' +
         '<td>Original</td><td>Positive</td><tbody>'
     const limit = 200;
     const infin = 20;
