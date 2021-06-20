@@ -7,6 +7,37 @@ html {
     margin: 0;
     padding: 0;
 }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+th {
+    text-align: right;
+    font-weight: normal;
+}
+b0 {
+    color:blue;
+    font-weight: bold;
+}
+b1 {
+    color:red;
+    font-weight: bold;
+}
+b2 {
+    color:orange;
+    font-weight: bold;
+}
+th, td {
+    font-size: 10px;
+}
+td:nth-child(2) {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+/*-------------------*/
 .wrapper {
     display:flex;
     flex-direction: column;
