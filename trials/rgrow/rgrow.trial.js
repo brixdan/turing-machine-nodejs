@@ -38,7 +38,7 @@ function toFile(path,data) {
     memo[d.p] = d.q;
     var html = '<link href="index.css" rel="stylesheet">' +
         '<div align="center"><table><th align="right">Negative</th>' +
-        '<td>Original</td><td>Positive</td><tbody>\n'
+        '<td>Original</td><td>Positive</td>\n'
     const limit = 200;
     const infin = 500;
     while(step < infin) {
@@ -64,7 +64,7 @@ function toFile(path,data) {
         }
         step++;
     }
-    html +=`</tbody></table>\n
+    html +=`</table>\n
             step = ${step}</div>`
     toFile("../../_html/index.html",html);
     console.log(html)
