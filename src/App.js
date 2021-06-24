@@ -17,7 +17,7 @@ function visual () {
     memo[d.p] = d.q;
     var html = '';
     const limit = 200;
-    const infin = 1000;
+    const infin = 5000;
     while(step < infin) {
         data[step] = [];
         let d = it.next().value;

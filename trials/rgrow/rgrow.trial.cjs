@@ -19,10 +19,10 @@ function toFile(path,data) {
 };
 +function () {
     tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
-    tape =     [1,1,0,0,0,0,0,1,1]
+   // tape =     [1,1,0,0,0,0,0,1,1]
     let step = tm("rgrow", tape, 55000, q0, 0, false);
     console.log(" step = ", step, typeof tape);
-};
+}();
 
 
 +function visual () {
@@ -69,7 +69,7 @@ function toFile(path,data) {
     toFile("../../_html/index.html",html);
     console.log(html)
     console.log("step = ", step === infin?'infinity':step)
-}();
+};
 
 +function enumerate () {
     let s = '';

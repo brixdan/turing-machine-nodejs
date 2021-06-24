@@ -46,3 +46,18 @@ say 4 times with code like:
                         }
 
 and the result should be \[0,1,1\], or exactly 6
+
+# Turing Mashine Concept
+While the concept of TM solves the main problem of splitting time in an ordered sequence of parts, proving of each being strictly deterministic, it heavily obscures all other aspects of the notion of algorithm itself.
+
+In fact, it appears to be a chaotic process, rather than scientific approach in nature. It happens because of freedom to go back and forth along the tape, thus using it as unlimited size memory medium. It actually iterates over initial tape again and again, until initial state is unimportant at all, future affects past, past future, they mix and shuffle in absolutely chaotic manner. Chaotic, meaning so complex, that may be well considered random. Random and exceedingly complex are the same notions.
+
+Every low information process over unlimited scope of time must be fractal, periodical in nature, but TM is not so. We have seen some very simplistic TM(3,3) that goes a thousand times wider than initial word length before it eventually stops. E.g. "Rgrow" machine and tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1 \] rgrow: stops at step 23595! which is absolutely amusing.
+
+If some problem resolves mathematically, then we should have an algorithm, that uses limited number of memory cells, holding limited values and calls on every step right some limited number of pure deterministic functions, updating those cells and state itself. TM cannot go back over the tape, otherwise it performs physical experiment, not a computation of some defining property, which is a purpose of mathematics. Example of such an algorithm - division by 3 check. Also, reducer for grow TM is clearly of that kind.
+
+It seems like prime number check is an algorithm, but in reality it is not. Just a physical check, enumeration of all possible devisors. Math has nothing to do with that.
+
+From that point stems a big mess with complexity evaluation. As TM moves right direction over tape, performing each time limited by K number of additional auxiliary steps, it makes a total of n + K*n = O(n) steps at most. Everything, that exceeds that number is a test, not an algorithm and cannot be subject to math, only neural networks, demanding lots of time and power.
+
+How can we measure one chaotic process by another chaotic process. Which of two random numbers is "more random". It's like comparing Cantor numbers - not much sensible, except maybe just madness.
