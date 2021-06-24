@@ -1,17 +1,17 @@
 import React from "react";
 import { VariableSizeGrid as Grid } from "react-window";
-
+//import { tmg } from './engine'
 import "./styles.css";
 
-const { tm, tmg } = require('./engine');
+const { tmg } = require('./engine');
 function visual () {
-    tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
+    let tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
     tape = [0,0,0,1]//rgrow: halt@46
     //tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
     //tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
     let l = tape.length;
     // let d = { script: "rgrow", tape, p: 0, q: q0 };
-    let d = { script: "rgrowim", tape, p: 0, q: q0 };
+    let d = { script: "rgrowim", tape, p: 0, q: 'q0' };
     let it = tmg(d);
     var memo = {}, step = 0;
     memo[d.p] = d.q;
@@ -27,9 +27,9 @@ function visual () {
         for (let i = -limit; i < limit ; i++) {
             t = `${i === d.p?'<u>'+(d.tape[i]??'*')+'</u>':d.tape[i]??''}`
             let temp = {};
-            temp[q0] ='<b0>' + t + '</b0>';
-            temp[q1] ='<b1>' + t + '</b1>';
-            temp[q2] ='<b2>' + t + '</b2>';
+            temp['q0'] ='<b0>' + t + '</b0>';
+            temp['q1'] ='<b1>' + t + '</b1>';
+            temp['q2'] ='<b2>' + t + '</b2>';
 
             color = temp[memo[i]]||'<b>' + t + '</b>';
             str += (d.tape[i] !== undefined||i===d.p)? color:'';
@@ -46,7 +46,7 @@ function visual () {
     console.log(html)
     console.log("step = ", step === infin?'infinity':step)
 }
-visual();
+// visual();
 // These cell sizes are arbitrary.
 // Yours should be based on the content of the cell.
 // const columnWidths = new Array(1000)

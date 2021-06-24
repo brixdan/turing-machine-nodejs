@@ -2,12 +2,12 @@
 const colors = require('colors');
 const fs = require('fs');
 // Prepare symbols:
-[L, R, halt, q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, B, w, m, n] =
+var [L, R, halt, q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, B, w, m, n] =
     ["L", "R", "halt", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "B", "w", "m", "n"];
 
 Array.prototype.left = function(n) {
     let r = [];
-    for (i = 0; i < this.length; i++) {
+    for (let i = 0; i < this.length; i++) {
         r[i - n] = this[i];
     }
     return r;
@@ -42,7 +42,7 @@ Number.prototype.increase = function* increase() {
 Array.prototype.toLeftString = function(n = 100) {
     let r = [];
     if ((this['-1'] === undefined || this[-1] ==='B')) return this.join('');
-    for (i = 0; i < this.length + n + 1; i++) {
+    for (let i = 0; i < this.length + n + 1; i++) {
         if (i - n === 0) r[i] = '*';
         else if (i - n < 0) r[i] = this[i - n];
         else if (this[i - n - 1] !== 'B') r[i + 1] = this[i - n - 1];
@@ -95,13 +95,14 @@ Array.compareTapes = function compareTapes(x,y) {
 }
 
 module.exports.tmg = function* tmg(d = {script:"", tape:[0], p:0, q: q0 }) {
-    let script = require("./TMs/" + d.script);
+    let script = require("../TMs/" + d.script);
     function step(d) {
-        let tape = Object.assign([], d.tape); p = d.p; q = d.q; // don't change income!!!
-        with (script[q][tape[p] ?? "B"]) {
-            tape[p] = w
-            q = n
-            switch (m) {        // move to next p-position
+        let tape = Object.assign([], d.tape), p = d.p, q = d.q; // don't change income!!!
+        // with (script[q][tape[p] ?? "B"]) {
+        let wz = script[q][tape[p] ?? "B"]
+            tape[p] = wz.w
+            q = wz.n
+            switch (wz.m) {        // move to next p-position
                 case L:
                     p = p - 1;
                     break;
@@ -109,10 +110,9 @@ module.exports.tmg = function* tmg(d = {script:"", tape:[0], p:0, q: q0 }) {
                     p = p + 1;
                     break;
                 default:
-                    p = m; // or jump -)
+                    p = wz.m; // or jump -)
             }
             return {tape, p, q}
-        }
     }
     let _d = {}; _d.tape = Object.assign([], d.tape);  _d.p = d.p; _d.q = d.q;
     while (_d.q !== 'halt') {
