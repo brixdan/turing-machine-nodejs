@@ -19,9 +19,10 @@ function visual () {
     const limit = 200;
     const infin = 20;
     while(step < infin) {
+        data[step] = [];
         let d = it.next().value;
         memo[d.p] = d.q;
-        let str = '<th>';
+        let str = '';
         let t = '';
         let color = '';
         for (let i = -limit; i < limit ; i++) {
@@ -33,27 +34,31 @@ function visual () {
 
             color = temp[memo[i]]||'<b>' + t + '</b>';
             str += (d.tape[i] !== undefined||i===d.p)? color:'';
-            if (i === -1) str += '</th><td>'
-            if (i === l-1) str += '</td><td>'
+            if (i === -1) {
+                data[step][1] = str; str = '';
+            }
+            if (i === l-1) {
+                data[step][2] = str; str = '';
+            }
         }
-        str += '</td>'
-        html += '<tr>' + str + '</tr>'
+        data[step][3] = str;
         if (d.q === 'halt') {
             break;
         }
         step++;
     }
-    console.log(html)
-    console.log("step = ", step === infin?'infinity':step)
+    console.log(data)
+    console.log("step = ", step === infin?'infinity':step);
+    return data;
 }
-visual();
+let data = visual();
 // These cell sizes are arbitrary.
 // Yours should be based on the content of the cell.
 // const columnWidths = new Array(1000)
 //     .fill(true)
 //     // .map(() => 75 + Math.round(Math.random() * 50));
 const columnWidths = (index) => {
-    return index === 0?10:60*(index + 1);
+    return index === 0?20:index === 2?data[0][2].length - 10: 300;
 }
 const rowHeights = new Array(1000)
   .fill(true)
@@ -68,7 +73,9 @@ const Cell = ({ columnIndex, rowIndex, style }) => (
         // : "GridItemEven"
     }
     style={style}
-    dangerouslySetInnerHTML={{ __html: columnIndex === 0?rowIndex:'<b1>Why</b1>' }}
+    dangerouslySetInnerHTML={{ __html: columnIndex === 0?rowIndex:
+            columnIndex === 1?data[rowIndex][1]:columnIndex === 2?
+            data[rowIndex][2]:columnIndex === 3?data[rowIndex][3]:''}}
   ></div>
 );
 
@@ -82,7 +89,7 @@ const App = () => (
       columnCount={4}
       columnWidth={(index) => columnWidths(index)}
       height={400}
-      rowCount={1000}
+      rowCount={data.length}
       rowHeight={(index) => rowHeights[index]}
       width={800}
     >
