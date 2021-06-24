@@ -46,7 +46,7 @@ function visual () {
     console.log(html)
     console.log("step = ", step === infin?'infinity':step)
 }
-// visual();
+visual();
 // These cell sizes are arbitrary.
 // Yours should be based on the content of the cell.
 // const columnWidths = new Array(1000)
