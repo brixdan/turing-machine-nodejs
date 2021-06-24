@@ -47,8 +47,6 @@ function visual () {
         }
         step++;
     }
-    console.log(data)
-    console.log("step = ", step === infin?'infinity':step);
     return data;
 }
 let data = visual();
