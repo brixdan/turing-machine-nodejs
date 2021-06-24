@@ -1,10 +1,10 @@
 import React from "react";
 import { VariableSizeGrid as Grid } from "react-window";
-//import { tmg } from './engine'
 import "./styles.css";
-
 const { tmg } = require('./engine');
+
 function visual () {
+    let data = [];
     let tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
     tape = [0,0,0,1]//rgrow: halt@46
     //tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
@@ -74,7 +74,7 @@ const Cell = ({ columnIndex, rowIndex, style }) => (
 
 const App = () => (
     <div className="wrapper">
-     <div align="center"><table><th>Negative</th>
+     <div align="center"><table><td>Negative</td>
        <td>Original</td><td>Positive</td></table>
     </div>
     <Grid

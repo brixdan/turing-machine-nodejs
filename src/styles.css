@@ -7,16 +7,7 @@ html {
     margin: 0;
     padding: 0;
 }
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
-th {
-    text-align: right;
-    font-weight: normal;
-}
 b0 {
     color:blue;
     font-weight: bold;
