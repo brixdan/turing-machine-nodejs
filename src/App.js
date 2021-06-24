@@ -6,18 +6,18 @@ const { tmg } = require('./engine');
 function visual () {
     let data = [];
     let tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
-    tape = [0,0,0,1]//rgrow: halt@46
+    //tape = [0,0,0,1]//rgrow: halt@46
     //tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
     //tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
     let l = tape.length;
     // let d = { script: "rgrow", tape, p: 0, q: q0 };
-    let d = { script: "rgrowim", tape, p: 0, q: 'q0' };
+    let d = { script: "rgrow", tape, p: 0, q: 'q0' };
     let it = tmg(d);
     var memo = {}, step = 0;
     memo[d.p] = d.q;
     var html = '';
     const limit = 200;
-    const infin = 20;
+    const infin = 1000;
     while(step < infin) {
         data[step] = [];
         let d = it.next().value;
@@ -58,7 +58,7 @@ let data = visual();
 //     .fill(true)
 //     // .map(() => 75 + Math.round(Math.random() * 50));
 const columnWidths = (index) => {
-    return index === 0?20:index === 2?data[0][2].length - 10: 300;
+    return index === 0?20:index === 2?data[1][2].length*0.73: 320;
 }
 const rowHeights = new Array(1000)
   .fill(true)
