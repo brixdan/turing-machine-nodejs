@@ -63,7 +63,7 @@ String.prototype.toArray = function toArray () {
 String.prototype.reverse = function reverse () {
         return this.split("").reverse().join("");
 }
-Object.prototype.storeData = function storeData(data,path) {
+module.exports.storeData = function storeData(data,path) {
     try {
         fs.writeFileSync(path, JSON.stringify(data))
     } catch (err) {
@@ -71,7 +71,7 @@ Object.prototype.storeData = function storeData(data,path) {
     }
 }
 
-Object.prototype.loadData = function loadData(path) {
+module.exports.loadData = function loadData(path) {
     try {
         return fs.readFileSync(path, 'utf8')
     } catch (err) {

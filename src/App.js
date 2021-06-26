@@ -8,7 +8,7 @@ function visual () {
     let tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
     //tape = [0,0,0,1]//rgrow: halt@46
     //tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
-    //tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
+    tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
     let l = tape.length;
     // let d = { script: "rgrow", tape, p: 0, q: q0 };
     let d = { script: "rgrow", tape, p: 0, q: 'q0' };
@@ -17,7 +17,7 @@ function visual () {
     memo[d.p] = d.q;
     var html = '';
     const limit = 200;
-    const infin = 5000;
+    const infin = 30000;
     while(step < infin) {
         data[step] = [];
         let d = it.next().value;
@@ -56,9 +56,9 @@ let data = visual();
 //     .fill(true)
 //     // .map(() => 75 + Math.round(Math.random() * 50));
 const columnWidths = (index) => {
-    return index === 0?20:index === 2?data[1][2].length*0.73: 320;
+    return index === 0?20:index === 2?data[1][2].length*0.80:index === 1? 1100:100;
 }
-const rowHeights = new Array(1000)
+const rowHeights = new Array(30000)
   .fill(true)
   .map(() => 14);
 
@@ -74,22 +74,20 @@ const Cell = ({ columnIndex, rowIndex, style }) => (
     dangerouslySetInnerHTML={{ __html: columnIndex === 0?rowIndex:
             columnIndex === 1?data[rowIndex][1]:columnIndex === 2?
             data[rowIndex][2]:columnIndex === 3?data[rowIndex][3]:''}}
-  ></div>
+  />
 );
 
 const App = () => (
     <div className="wrapper">
-     <div align="center"><table><td>Negative</td>
-       <td>Original</td><td>Positive</td></table>
-    </div>
+
     <Grid
       className="Grid"
       columnCount={4}
       columnWidth={(index) => columnWidths(index)}
-      height={400}
+      height={800}
       rowCount={data.length}
       rowHeight={(index) => rowHeights[index]}
-      width={800}
+      width={1300}
     >
       {Cell}
     </Grid>

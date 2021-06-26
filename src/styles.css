@@ -30,11 +30,13 @@ td:nth-child(2) {
 
 /*-------------------*/
 .wrapper {
+    position: relative;
     display:flex;
     flex-direction: column;
     justify-items: center;
 }
 .Grid {
+    position: absolute;
     border: 1px solid #131212;
     margin: 1px auto;
 }
