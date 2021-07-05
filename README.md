@@ -61,3 +61,8 @@ It seems like prime number check is an algorithm, but in reality it is not. Just
 From that point stems a big mess with complexity evaluation. As TM moves right direction over tape, performing each time limited by K number of additional auxiliary steps, it makes a total of n + K*n = O(n) steps at most. Everything, that exceeds that number is a test, not an algorithm and cannot be subject to math, only neural networks, demanding lots of time and power.
 
 How can we measure one chaotic process by another chaotic process. Which of two random numbers is "more random". It's like comparing Cantor numbers - not much sensible, except maybe just madness.
+
+### Definitions
+Define right moving TM as **Linear**.
+Also define, that Linear is limited in every aspect by constant L, number of states mainly, because having some memory and helper functions is equivalent to increase in number of states. As can be viewed on example of modulo3 Linear.
+On example of duplicating TM can be seen that not every TM is Linear and the proof of it is basically the only way of proving things we have for capabilities of such kind of deterministic processes. Duplicate has to do at least 2n^2/L steps, even if it can transfer chanks of number.
