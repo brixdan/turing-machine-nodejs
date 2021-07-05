@@ -47,7 +47,7 @@ say 4 times with code like:
 
 and the result should be \[0,1,1\], or exactly 6
 
-# Turing Mashine Concept
+# Turing Machine Concept
 While the concept of TM solves the main problem of splitting time in an ordered sequence of parts, proving of each being strictly deterministic, it heavily obscures all other aspects of the notion of algorithm itself.
 
 In fact, it appears to be a chaotic process, rather than scientific approach in nature. It happens because of freedom to go back and forth along the tape, thus using it as unlimited size memory medium. It actually iterates over initial tape again and again, until initial state is unimportant at all, future affects past, past future, they mix and shuffle in absolutely chaotic manner. Chaotic, meaning so complex, that may be well considered random. Random and exceedingly complex are the same notions.
