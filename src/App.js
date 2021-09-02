@@ -6,11 +6,9 @@ const { tmg } = require('./engine');
 function visual () {
     let data = [];
     let tape = [1,1,0,0,0,0,0,1,1]//rgrow: infinite
-    //tape = [0,0,0,1]//rgrow: halt@46
-    //tape = [1,0,1,1,0,1,1,0,1]//rgrow: stop at step 23595:
+    tape = [1,0,1]//rgrow: halt@46
     tape = [1,0,1,1,0,1,1,0,1,0,1,1,1,0,1]//rgrow: stop at step 23595:
     let l = tape.length;
-    // let d = { script: "rgrow", tape, p: 0, q: q0 };
     let d = { script: "rgrow", tape, p: 0, q: 'q0' };
     let it = tmg(d);
     var memo = {}, step = 0;
